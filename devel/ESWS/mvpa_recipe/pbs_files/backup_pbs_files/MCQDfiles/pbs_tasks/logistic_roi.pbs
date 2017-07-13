@@ -1,0 +1,10 @@
+#!/bin/tcsh
+
+#PBS -l mem=5gb,nodes=1:ppn=1,walltime=24:00:00
+
+module load matlab/2014a
+
+cd MCQD_JohnK/mvpa_recipe
+
+pwd
+matlab -nodisplay -nodesktop -nosplash -r logistic_roi_main_script

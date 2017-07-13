@@ -1,0 +1,270 @@
+Warning: no access to tty (Bad file descriptor).
+Thus no job control in this shell.
+/scratch/ksander/ESWS_MVPA/mvpa_recipe
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2015 The MathWorks, Inc.
+                   R2015a (8.5.0.197613) 64-bit (glnxa64)
+                             February 12, 2015
+
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+
+	Academic License
+
+Creating options structureStarting parallel pool (parpool) using the 'local' profile ... [Warning: Could not launch SMPD process manager. Using fallback parallel
+mechanism.] 
+[> In parallel.internal.apishared.SmpdGateway.canUseSmpd (line 80)
+  In parallel.cluster.Local/hSubmitCommunicatingJob (line 22)
+  In parallel.job.CJSCommunicatingJob/submitOneJob (line 81)
+  In parallel.Job/submit (line 306)
+  In parallel.internal.pool.InteractiveClient/start (line 330)
+  In parallel.Pool>iStartClient (line 547)
+  In parallel.Pool.hBuildPool (line 439)
+  In parallel.internal.pool.doParpool (line 15)
+  In parpool (line 89)
+  In LOSO_SL_mainscript_LSS_RV_r1p5 (line 47)] 
+connected to 16 workers.
+ans = 
+ Pool with properties: 
+
+            Connected: true
+           NumWorkers: 16
+              Cluster: local
+        AttachedFiles: ...er/ESWS_MVPA/mvpa_recipe/classifier_functions/RelVec.m
+          IdleTimeout: 30 minute(s) (30 minutes remaining)
+          SpmdEnabled: true
+:::Starting searchlight LOSO MVPA:::
+ROI: whole_brain
+
+Initializing searchlight file #1/227
+Initializing searchlight file #2/227
+Initializing searchlight file #3/227
+Initializing searchlight file #4/227
+Initializing searchlight file #5/227
+Initializing searchlight file #6/227
+Initializing searchlight file #7/227
+Initializing searchlight file #8/227
+Initializing searchlight file #9/227
+Initializing searchlight file #10/227
+Initializing searchlight file #11/227
+Initializing searchlight file #12/227
+Initializing searchlight file #13/227
+Initializing searchlight file #14/227
+Initializing searchlight file #15/227
+Initializing searchlight file #16/227
+Initializing searchlight file #17/227
+Initializing searchlight file #18/227
+Initializing searchlight file #19/227
+Initializing searchlight file #20/227
+Initializing searchlight file #21/227
+Initializing searchlight file #22/227
+Initializing searchlight file #23/227
+Initializing searchlight file #24/227
+Initializing searchlight file #25/227
+Initializing searchlight file #26/227
+Initializing searchlight file #27/227
+Initializing searchlight file #28/227
+Initializing searchlight file #29/227
+Initializing searchlight file #30/227
+Initializing searchlight file #31/227
+Initializing searchlight file #32/227
+Initializing searchlight file #33/227
+Initializing searchlight file #34/227
+Initializing searchlight file #35/227
+Initializing searchlight file #36/227
+Initializing searchlight file #37/227
+Initializing searchlight file #38/227
+Initializing searchlight file #39/227
+Initializing searchlight file #40/227
+Initializing searchlight file #41/227
+Initializing searchlight file #42/227
+Initializing searchlight file #43/227
+Initializing searchlight file #44/227
+Initializing searchlight file #45/227
+Initializing searchlight file #46/227
+Initializing searchlight file #47/227
+Initializing searchlight file #48/227
+Initializing searchlight file #49/227
+Initializing searchlight file #50/227
+Initializing searchlight file #51/227
+Initializing searchlight file #52/227
+Initializing searchlight file #53/227
+Initializing searchlight file #54/227
+Initializing searchlight file #55/227
+Initializing searchlight file #56/227
+Initializing searchlight file #57/227
+Initializing searchlight file #58/227
+Initializing searchlight file #59/227
+Initializing searchlight file #60/227
+Initializing searchlight file #61/227
+Initializing searchlight file #62/227
+Initializing searchlight file #63/227
+Initializing searchlight file #64/227
+Initializing searchlight file #65/227
+Initializing searchlight file #66/227
+Initializing searchlight file #67/227
+Initializing searchlight file #68/227
+Initializing searchlight file #69/227
+Initializing searchlight file #70/227
+Initializing searchlight file #71/227
+Initializing searchlight file #72/227
+Initializing searchlight file #73/227
+Initializing searchlight file #74/227
+Initializing searchlight file #75/227
+Initializing searchlight file #76/227
+Initializing searchlight file #77/227
+Initializing searchlight file #78/227
+Initializing searchlight file #79/227
+Initializing searchlight file #80/227
+Initializing searchlight file #81/227
+Initializing searchlight file #82/227
+Initializing searchlight file #83/227
+Initializing searchlight file #84/227
+Initializing searchlight file #85/227
+Initializing searchlight file #86/227
+Initializing searchlight file #87/227
+Initializing searchlight file #88/227
+Initializing searchlight file #89/227
+Initializing searchlight file #90/227
+Initializing searchlight file #91/227
+Initializing searchlight file #92/227
+Initializing searchlight file #93/227
+Initializing searchlight file #94/227
+Initializing searchlight file #95/227
+Initializing searchlight file #96/227
+Initializing searchlight file #97/227
+Initializing searchlight file #98/227
+Initializing searchlight file #99/227
+Initializing searchlight file #100/227
+Initializing searchlight file #101/227
+Initializing searchlight file #102/227
+Initializing searchlight file #103/227
+Initializing searchlight file #104/227
+Initializing searchlight file #105/227
+Initializing searchlight file #106/227
+Initializing searchlight file #107/227
+Initializing searchlight file #108/227
+Initializing searchlight file #109/227
+Initializing searchlight file #110/227
+Initializing searchlight file #111/227
+Initializing searchlight file #112/227
+Initializing searchlight file #113/227
+Initializing searchlight file #114/227
+Initializing searchlight file #115/227
+Initializing searchlight file #116/227
+Initializing searchlight file #117/227
+Initializing searchlight file #118/227
+Initializing searchlight file #119/227
+Initializing searchlight file #120/227
+Initializing searchlight file #121/227
+Initializing searchlight file #122/227
+Initializing searchlight file #123/227
+Initializing searchlight file #124/227
+Initializing searchlight file #125/227
+Initializing searchlight file #126/227
+Initializing searchlight file #127/227
+Initializing searchlight file #128/227
+Initializing searchlight file #129/227
+Initializing searchlight file #130/227
+Initializing searchlight file #131/227
+Initializing searchlight file #132/227
+Initializing searchlight file #133/227
+Initializing searchlight file #134/227
+Initializing searchlight file #135/227
+Initializing searchlight file #136/227
+Initializing searchlight file #137/227
+Initializing searchlight file #138/227
+Initializing searchlight file #139/227
+Initializing searchlight file #140/227
+Initializing searchlight file #141/227
+Initializing searchlight file #142/227
+Initializing searchlight file #143/227
+Initializing searchlight file #144/227
+Initializing searchlight file #145/227
+Initializing searchlight file #146/227
+Initializing searchlight file #147/227
+Initializing searchlight file #148/227
+Initializing searchlight file #149/227
+Initializing searchlight file #150/227
+Initializing searchlight file #151/227
+Initializing searchlight file #152/227
+Initializing searchlight file #153/227
+Initializing searchlight file #154/227
+Initializing searchlight file #155/227
+Initializing searchlight file #156/227
+Initializing searchlight file #157/227
+Initializing searchlight file #158/227
+Initializing searchlight file #159/227
+Initializing searchlight file #160/227
+Initializing searchlight file #161/227
+Initializing searchlight file #162/227
+Initializing searchlight file #163/227
+Initializing searchlight file #164/227
+Initializing searchlight file #165/227
+Initializing searchlight file #166/227
+Initializing searchlight file #167/227
+Initializing searchlight file #168/227
+Initializing searchlight file #169/227
+Initializing searchlight file #170/227
+Initializing searchlight file #171/227
+Initializing searchlight file #172/227
+Initializing searchlight file #173/227
+Initializing searchlight file #174/227
+Initializing searchlight file #175/227
+Initializing searchlight file #176/227
+Initializing searchlight file #177/227
+Initializing searchlight file #178/227
+Initializing searchlight file #179/227
+Initializing searchlight file #180/227
+Initializing searchlight file #181/227
+Initializing searchlight file #182/227
+Initializing searchlight file #183/227
+Initializing searchlight file #184/227
+Initializing searchlight file #185/227
+Initializing searchlight file #186/227
+Initializing searchlight file #187/227
+Initializing searchlight file #188/227
+Initializing searchlight file #189/227
+Initializing searchlight file #190/227
+Initializing searchlight file #191/227
+Initializing searchlight file #192/227
+Initializing searchlight file #193/227
+Initializing searchlight file #194/227
+Initializing searchlight file #195/227
+Initializing searchlight file #196/227
+Initializing searchlight file #197/227
+Initializing searchlight file #198/227
+Initializing searchlight file #199/227
+Initializing searchlight file #200/227
+Initializing searchlight file #201/227
+Initializing searchlight file #202/227
+Initializing searchlight file #203/227
+Initializing searchlight file #204/227
+Initializing searchlight file #205/227
+Initializing searchlight file #206/227
+Initializing searchlight file #207/227
+Initializing searchlight file #208/227
+Initializing searchlight file #209/227
+Initializing searchlight file #210/227
+Initializing searchlight file #211/227
+Initializing searchlight file #212/227
+Initializing searchlight file #213/227
+Initializing searchlight file #214/227
+Initializing searchlight file #215/227
+Initializing searchlight file #216/227
+Initializing searchlight file #217/227
+Initializing searchlight file #218/227
+Initializing searchlight file #219/227
+Initializing searchlight file #220/227
+Initializing searchlight file #221/227
+Initializing searchlight file #222/227
+Initializing searchlight file #223/227
+Initializing searchlight file #224/227
+Initializing searchlight file #225/227
+Initializing searchlight file #226/227
+Initializing searchlight file #227/227
+Parallel pool using the 'local' profile is shutting down.
+>> 

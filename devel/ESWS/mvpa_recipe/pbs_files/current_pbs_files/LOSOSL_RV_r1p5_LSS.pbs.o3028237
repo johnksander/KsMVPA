@@ -1,0 +1,768 @@
+Warning: no access to tty (Bad file descriptor).
+Thus no job control in this shell.
+/scratch/ksander/ESWS_MVPA/mvpa_recipe
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2015 The MathWorks, Inc.
+                   R2015a (8.5.0.197613) 64-bit (glnxa64)
+                             February 12, 2015
+
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+
+	Academic License
+
+Creating options structureStarting parallel pool (parpool) using the 'local' profile ... [Warning: Could not launch SMPD process manager. Using fallback parallel
+mechanism.] 
+[> In parallel.internal.apishared.SmpdGateway.canUseSmpd (line 80)
+  In parallel.cluster.Local/hSubmitCommunicatingJob (line 22)
+  In parallel.job.CJSCommunicatingJob/submitOneJob (line 81)
+  In parallel.Job/submit (line 306)
+  In parallel.internal.pool.InteractiveClient/start (line 330)
+  In parallel.Pool>iStartClient (line 547)
+  In parallel.Pool.hBuildPool (line 439)
+  In parallel.internal.pool.doParpool (line 15)
+  In parpool (line 89)
+  In LOSO_SL_mainscript_LSS_RV_r1p5 (line 38)] 
+connected to 16 workers.
+ans = 
+ Pool with properties: 
+
+            Connected: true
+           NumWorkers: 16
+              Cluster: local
+        AttachedFiles: {}
+          IdleTimeout: 30 minute(s) (30 minutes remaining)
+          SpmdEnabled: true
+:::preallocating searchlight roi_data:::
+Creating directories
+
+
+Strarting roi #1 whole_brain ...
+Finding searchlight indiciesPreallocating searchlights
+Working on voxel: 10000 / 253384
+Working on voxel: 20000 / 253384
+Working on voxel: 30000 / 253384
+Working on voxel: 40000 / 253384
+Working on voxel: 50000 / 253384
+Working on voxel: 60000 / 253384
+Working on voxel: 70000 / 253384
+Working on voxel: 80000 / 253384
+Working on voxel: 90000 / 253384
+Working on voxel: 100000 / 253384
+Working on voxel: 110000 / 253384
+Working on voxel: 120000 / 253384
+Working on voxel: 130000 / 253384
+Working on voxel: 140000 / 253384
+Working on voxel: 150000 / 253384
+Working on voxel: 160000 / 253384
+Working on voxel: 170000 / 253384
+Working on voxel: 180000 / 253384
+Working on voxel: 190000 / 253384
+Working on voxel: 200000 / 253384
+Working on voxel: 210000 / 253384
+Working on voxel: 220000 / 253384
+Working on voxel: 230000 / 253384
+Working on voxel: 240000 / 253384
+Working on voxel: 250000 / 253384
+Complete, saving searchlight indicies
+
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Starting parallel pool (parpool) using the 'local' profile ... [Warning: Could not launch SMPD process manager. Using fallback parallel
+mechanism.] 
+[> In parallel.internal.apishared.SmpdGateway.canUseSmpd (line 80)
+  In parallel.cluster.Local/hSubmitCommunicatingJob (line 22)
+  In parallel.job.CJSCommunicatingJob/submitOneJob (line 81)
+  In parallel.Job/submit (line 306)
+  In parallel.internal.pool.InteractiveClient/start (line 330)
+  In parallel.Pool>iStartClient (line 547)
+  In parallel.Pool.hBuildPool (line 439)
+  In parallel.internal.pool.doParpool (line 15)
+  In parpool (line 89)
+  In parallel.internal.pool.PoolArrayManager.getOrAutoCreateWithCleanup (line 49)
+  In pctTryCreatePoolIfNecessary (line 23)
+  In distcomp.remoteparfor.tryRemoteParfor (line 27)
+  In parallel_function (line 433)
+  In preprocess_searchlight_rois (line 98)
+  In LOSO_SL_mainscript_LSS_RV_r1p5 (line 39)] 
+IdleTimeout has been reached.
+Parallel pool using the 'local' profile is shutting down.
+connected to 12 workers.
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Starting parallel pool (parpool) using the 'local' profile ... [Warning: Could not launch SMPD process manager. Using fallback parallel
+mechanism.] 
+[> In parallel.internal.apishared.SmpdGateway.canUseSmpd (line 80)
+  In parallel.cluster.Local/hSubmitCommunicatingJob (line 22)
+  In parallel.job.CJSCommunicatingJob/submitOneJob (line 81)
+  In parallel.Job/submit (line 306)
+  In parallel.internal.pool.InteractiveClient/start (line 330)
+  In parallel.Pool>iStartClient (line 547)
+  In parallel.Pool.hBuildPool (line 439)
+  In parallel.internal.pool.doParpool (line 15)
+  In parpool (line 89)
+  In parallel.internal.pool.PoolArrayManager.getOrAutoCreateWithCleanup (line 49)
+  In pctTryCreatePoolIfNecessary (line 23)
+  In distcomp.remoteparfor.tryRemoteParfor (line 27)
+  In parallel_function (line 433)
+  In preprocess_searchlight_rois (line 98)
+  In LOSO_SL_mainscript_LSS_RV_r1p5 (line 39)] 
+IdleTimeout has been reached.
+Parallel pool using the 'local' profile is shutting down.
+connected to 12 workers.
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Initalizing file #20/227
+Initalizing file #40/227
+Initalizing file #60/227
+Initalizing file #80/227
+Initalizing file #100/227
+Initalizing file #120/227
+Initalizing file #140/227
+Initalizing file #160/227
+Initalizing file #180/227
+Initalizing file #200/227
+Initalizing file #220/227
+Parallel pool using the 'local' profile is shutting down.
+Starting parallel pool (parpool) using the 'local' profile ... [Warning: Could not launch SMPD process manager. Using fallback parallel
+mechanism.] 
+[> In parallel.internal.apishared.SmpdGateway.canUseSmpd (line 80)
+  In parallel.cluster.Local/hSubmitCommunicatingJob (line 22)
+  In parallel.job.CJSCommunicatingJob/submitOneJob (line 81)
+  In parallel.Job/submit (line 306)
+  In parallel.internal.pool.InteractiveClient/start (line 330)
+  In parallel.Pool>iStartClient (line 547)
+  In parallel.Pool.hBuildPool (line 439)
+  In parallel.internal.pool.doParpool (line 15)
+  In parpool (line 89)
+  In LOSO_SL_mainscript_LSS_RV_r1p5 (line 47)] 
+connected to 16 workers.
+ans = 
+ Pool with properties: 
+
+            Connected: true
+           NumWorkers: 16
+              Cluster: local
+        AttachedFiles: ...er/ESWS_MVPA/mvpa_recipe/classifier_functions/RelVec.m
+          IdleTimeout: 30 minute(s) (30 minutes remaining)
+          SpmdEnabled: true
+:::Starting searchlight LOSO MVPA:::
+ROI: whole_brain
+
+Initializing searchlight file #1/227
+Initializing searchlight file #2/227
+Initializing searchlight file #3/227
+Initializing searchlight file #4/227
+Initializing searchlight file #5/227
+Starting parallel pool (parpool) using the 'local' profile ... [Warning: Could not launch SMPD process manager. Using fallback parallel
+mechanism.] 
+[> In parallel.internal.apishared.SmpdGateway.canUseSmpd (line 80)
+  In parallel.cluster.Local/hSubmitCommunicatingJob (line 22)
+  In parallel.job.CJSCommunicatingJob/submitOneJob (line 81)
+  In parallel.Job/submit (line 306)
+  In parallel.internal.pool.InteractiveClient/start (line 330)
+  In parallel.Pool>iStartClient (line 547)
+  In parallel.Pool.hBuildPool (line 439)
+  In parallel.internal.pool.doParpool (line 15)
+  In parpool (line 89)
+  In parallel.internal.pool.PoolArrayManager.getOrAutoCreateWithCleanup (line 49)
+  In pctTryCreatePoolIfNecessary (line 23)
+  In distcomp.remoteparfor.tryRemoteParfor (line 27)
+  In parallel_function (line 433)
+  In LOSO_SL_parfor_mvpa (line 89)
+  In LOSO_SL_mainscript_LSS_RV_r1p5 (line 49)] 
+IdleTimeout has been reached.
+Parallel pool using the 'local' profile is shutting down.
+connected to 12 workers.
+Initializing searchlight file #6/227
+Initializing searchlight file #7/227
+Initializing searchlight file #8/227
+Initializing searchlight file #9/227
+Initializing searchlight file #10/227
+Initializing searchlight file #11/227
+Initializing searchlight file #12/227
+Initializing searchlight file #13/227
+Initializing searchlight file #14/227
+Initializing searchlight file #15/227
+Initializing searchlight file #16/227
+Starting parallel pool (parpool) using the 'local' profile ... [Warning: Could not launch SMPD process manager. Using fallback parallel
+mechanism.] 
+[> In parallel.internal.apishared.SmpdGateway.canUseSmpd (line 80)
+  In parallel.cluster.Local/hSubmitCommunicatingJob (line 22)
+  In parallel.job.CJSCommunicatingJob/submitOneJob (line 81)
+  In parallel.Job/submit (line 306)
+  In parallel.internal.pool.InteractiveClient/start (line 330)
+  In parallel.Pool>iStartClient (line 547)
+  In parallel.Pool.hBuildPool (line 439)
+  In parallel.internal.pool.doParpool (line 15)
+  In parpool (line 89)
+  In parallel.internal.pool.PoolArrayManager.getOrAutoCreateWithCleanup (line 49)
+  In pctTryCreatePoolIfNecessary (line 23)
+  In distcomp.remoteparfor.tryRemoteParfor (line 27)
+  In parallel_function (line 433)
+  In LOSO_SL_parfor_mvpa (line 89)
+  In LOSO_SL_mainscript_LSS_RV_r1p5 (line 49)] 
+IdleTimeout has been reached.
+Parallel pool using the 'local' profile is shutting down.
+connected to 12 workers.
+Initializing searchlight file #17/227
+Initializing searchlight file #18/227
+Initializing searchlight file #19/227
+Initializing searchlight file #20/227
+Initializing searchlight file #21/227
+Initializing searchlight file #22/227
+Initializing searchlight file #23/227
+Initializing searchlight file #24/227
+Initializing searchlight file #25/227
+Initializing searchlight file #26/227
+Initializing searchlight file #27/227
+Initializing searchlight file #28/227
+Initializing searchlight file #29/227
+Initializing searchlight file #30/227
+Initializing searchlight file #31/227
+Initializing searchlight file #32/227
+Initializing searchlight file #33/227
+Initializing searchlight file #34/227
+Initializing searchlight file #35/227
+Initializing searchlight file #36/227
+Initializing searchlight file #37/227
+Initializing searchlight file #38/227
+Initializing searchlight file #39/227
+Initializing searchlight file #40/227
+Initializing searchlight file #41/227
+Initializing searchlight file #42/227
+Initializing searchlight file #43/227
+Initializing searchlight file #44/227
+Initializing searchlight file #45/227
+Initializing searchlight file #46/227
+Initializing searchlight file #47/227
+Initializing searchlight file #48/227
+Initializing searchlight file #49/227
+Initializing searchlight file #50/227
+Initializing searchlight file #51/227
+Initializing searchlight file #52/227
+Initializing searchlight file #53/227
+Initializing searchlight file #54/227
+Initializing searchlight file #55/227
+Initializing searchlight file #56/227
+Initializing searchlight file #57/227
+Initializing searchlight file #58/227
+Initializing searchlight file #59/227
+Initializing searchlight file #60/227
+Initializing searchlight file #61/227
+Initializing searchlight file #62/227
+Initializing searchlight file #63/227
+Initializing searchlight file #64/227
+Initializing searchlight file #65/227
+Initializing searchlight file #66/227
+Initializing searchlight file #67/227
+Starting parallel pool (parpool) using the 'local' profile ... [Warning: Could not launch SMPD process manager. Using fallback parallel
+mechanism.] 
+[> In parallel.internal.apishared.SmpdGateway.canUseSmpd (line 80)
+  In parallel.cluster.Local/hSubmitCommunicatingJob (line 22)
+  In parallel.job.CJSCommunicatingJob/submitOneJob (line 81)
+  In parallel.Job/submit (line 306)
+  In parallel.internal.pool.InteractiveClient/start (line 330)
+  In parallel.Pool>iStartClient (line 547)
+  In parallel.Pool.hBuildPool (line 439)
+  In parallel.internal.pool.doParpool (line 15)
+  In parpool (line 89)
+  In parallel.internal.pool.PoolArrayManager.getOrAutoCreateWithCleanup (line 49)
+  In pctTryCreatePoolIfNecessary (line 23)
+  In distcomp.remoteparfor.tryRemoteParfor (line 27)
+  In parallel_function (line 433)
+  In LOSO_SL_parfor_mvpa (line 89)
+  In LOSO_SL_mainscript_LSS_RV_r1p5 (line 49)] 
+IdleTimeout has been reached.
+Parallel pool using the 'local' profile is shutting down.
+connected to 12 workers.
+Initializing searchlight file #68/227
+Initializing searchlight file #69/227
+Initializing searchlight file #70/227
+Initializing searchlight file #71/227
+Initializing searchlight file #72/227
+Initializing searchlight file #73/227
+Initializing searchlight file #74/227
+Initializing searchlight file #75/227
+Initializing searchlight file #76/227
+Initializing searchlight file #77/227
+Starting parallel pool (parpool) using the 'local' profile ... [Warning: Could not launch SMPD process manager. Using fallback parallel
+mechanism.] 
+[> In parallel.internal.apishared.SmpdGateway.canUseSmpd (line 80)
+  In parallel.cluster.Local/hSubmitCommunicatingJob (line 22)
+  In parallel.job.CJSCommunicatingJob/submitOneJob (line 81)
+  In parallel.Job/submit (line 306)
+  In parallel.internal.pool.InteractiveClient/start (line 330)
+  In parallel.Pool>iStartClient (line 547)
+  In parallel.Pool.hBuildPool (line 439)
+  In parallel.internal.pool.doParpool (line 15)
+  In parpool (line 89)
+  In parallel.internal.pool.PoolArrayManager.getOrAutoCreateWithCleanup (line 49)
+  In pctTryCreatePoolIfNecessary (line 23)
+  In distcomp.remoteparfor.tryRemoteParfor (line 27)
+  In parallel_function (line 433)
+  In LOSO_SL_parfor_mvpa (line 89)
+  In LOSO_SL_mainscript_LSS_RV_r1p5 (line 49)] 
+IdleTimeout has been reached.
+Parallel pool using the 'local' profile is shutting down.
+connected to 12 workers.
+Initializing searchlight file #78/227
+Initializing searchlight file #79/227
+Initializing searchlight file #80/227
+Starting parallel pool (parpool) using the 'local' profile ... [Warning: Could not launch SMPD process manager. Using fallback parallel
+mechanism.] 
+[> In parallel.internal.apishared.SmpdGateway.canUseSmpd (line 80)
+  In parallel.cluster.Local/hSubmitCommunicatingJob (line 22)
+  In parallel.job.CJSCommunicatingJob/submitOneJob (line 81)
+  In parallel.Job/submit (line 306)
+  In parallel.internal.pool.InteractiveClient/start (line 330)
+  In parallel.Pool>iStartClient (line 547)
+  In parallel.Pool.hBuildPool (line 439)
+  In parallel.internal.pool.doParpool (line 15)
+  In parpool (line 89)
+  In parallel.internal.pool.PoolArrayManager.getOrAutoCreateWithCleanup (line 49)
+  In pctTryCreatePoolIfNecessary (line 23)
+  In distcomp.remoteparfor.tryRemoteParfor (line 27)
+  In parallel_function (line 433)
+  In LOSO_SL_parfor_mvpa (line 89)
+  In LOSO_SL_mainscript_LSS_RV_r1p5 (line 49)] 
+IdleTimeout has been reached.
+Parallel pool using the 'local' profile is shutting down.
+connected to 12 workers.
+Initializing searchlight file #81/227
+Initializing searchlight file #82/227
+Initializing searchlight file #83/227
+Initializing searchlight file #84/227
+Initializing searchlight file #85/227
+Initializing searchlight file #86/227
+Initializing searchlight file #87/227
+Initializing searchlight file #88/227
+Initializing searchlight file #89/227
+Initializing searchlight file #90/227
+Terminated

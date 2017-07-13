@@ -1,0 +1,10 @@
+#!/bin/tcsh
+
+#PBS -l mem=60gb,nodes=1:ppn=24,walltime=36:00:00
+
+module load matlab/2015a
+
+cd vividness_mvpa/mvpa_recipe
+
+pwd
+matlab -nodisplay -nodesktop -nosplash -r roi_mainscript_aro_summedCV_rbag

@@ -1,0 +1,10 @@
+#!/bin/tcsh
+
+#PBS -l mem=60gb,nodes=1:ppn=16,walltime=18:00:00
+
+module load matlab/2015a
+
+cd ESWS_MVPA/mvpa_recipe
+
+pwd
+matlab -nodisplay -nodesktop -nosplash -r LOSO_SL_mainscript_LSS_RV_r1p5

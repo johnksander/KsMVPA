@@ -1,0 +1,502 @@
+Warning: no access to tty (Bad file descriptor).
+Thus no job control in this shell.
+/scratch/ksander/ESWS_MVPA/mvpa_recipe
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2015 The MathWorks, Inc.
+                   R2015a (8.5.0.197613) 64-bit (glnxa64)
+                             February 12, 2015
+
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+
+	Academic License
+
+Creating options structureStarting parallel pool (parpool) using the 'local' profile ... [Warning: Could not launch SMPD process manager. Using fallback parallel
+mechanism.] 
+[> In parallel.internal.apishared.SmpdGateway.canUseSmpd (line 80)
+  In parallel.cluster.Local/hSubmitCommunicatingJob (line 22)
+  In parallel.job.CJSCommunicatingJob/submitOneJob (line 81)
+  In parallel.Job/submit (line 306)
+  In parallel.internal.pool.InteractiveClient/start (line 330)
+  In parallel.Pool>iStartClient (line 547)
+  In parallel.Pool.hBuildPool (line 439)
+  In parallel.internal.pool.doParpool (line 15)
+  In parpool (line 89)
+  In LOSO_SL_mainscript_RV_r1p5 (line 35)] 
+connected to 16 workers.
+ans = 
+ Pool with properties: 
+
+            Connected: true
+           NumWorkers: 16
+              Cluster: local
+        AttachedFiles: {}
+          IdleTimeout: 30 minute(s) (30 minutes remaining)
+          SpmdEnabled: true
+:::preallocating searchlight roi_data:::
+Creating directories
+
+
+Strarting roi #1 whole_brain ...
+Finding searchlight indiciesPreallocating searchlights
+Working on voxel: 10000 / 223353
+Working on voxel: 20000 / 223353
+Working on voxel: 30000 / 223353
+Working on voxel: 40000 / 223353
+Working on voxel: 50000 / 223353
+Working on voxel: 60000 / 223353
+Working on voxel: 70000 / 223353
+Working on voxel: 80000 / 223353
+Working on voxel: 90000 / 223353
+Working on voxel: 100000 / 223353
+Working on voxel: 110000 / 223353
+Working on voxel: 120000 / 223353
+Working on voxel: 130000 / 223353
+Working on voxel: 140000 / 223353
+Working on voxel: 150000 / 223353
+Working on voxel: 160000 / 223353
+Working on voxel: 170000 / 223353
+Working on voxel: 180000 / 223353
+Working on voxel: 190000 / 223353
+Working on voxel: 200000 / 223353
+Working on voxel: 210000 / 223353
+Working on voxel: 220000 / 223353
+Complete, saving searchlight indicies
+
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Initalizing file #20/176
+Initalizing file #40/176
+Initalizing file #60/176
+Initalizing file #80/176
+Initalizing file #100/176
+Initalizing file #120/176
+Initalizing file #140/176
+Initalizing file #160/176
+Parallel pool using the 'local' profile is shutting down.
+Starting parallel pool (parpool) using the 'local' profile ... [Warning: Could not launch SMPD process manager. Using fallback parallel
+mechanism.] 
+[> In parallel.internal.apishared.SmpdGateway.canUseSmpd (line 80)
+  In parallel.cluster.Local/hSubmitCommunicatingJob (line 22)
+  In parallel.job.CJSCommunicatingJob/submitOneJob (line 81)
+  In parallel.Job/submit (line 306)
+  In parallel.internal.pool.InteractiveClient/start (line 330)
+  In parallel.Pool>iStartClient (line 547)
+  In parallel.Pool.hBuildPool (line 439)
+  In parallel.internal.pool.doParpool (line 15)
+  In parpool (line 89)
+  In LOSO_SL_mainscript_RV_r1p5 (line 44)] 
+connected to 16 workers.
+ans = 
+ Pool with properties: 
+
+            Connected: true
+           NumWorkers: 16
+              Cluster: local
+        AttachedFiles: ...er/ESWS_MVPA/mvpa_recipe/classifier_functions/RelVec.m
+          IdleTimeout: 30 minute(s) (30 minutes remaining)
+          SpmdEnabled: true
+:::Starting searchlight LOSO MVPA:::
+ROI: whole_brain
+
+Initializing searchlight file #1/176
+Initializing searchlight file #2/176
+Initializing searchlight file #3/176
+Initializing searchlight file #4/176
+Initializing searchlight file #5/176
+Initializing searchlight file #6/176
+Initializing searchlight file #7/176
+Initializing searchlight file #8/176
+Initializing searchlight file #9/176
+Initializing searchlight file #10/176
+Initializing searchlight file #11/176
+Initializing searchlight file #12/176
+Initializing searchlight file #13/176
+Initializing searchlight file #14/176
+Initializing searchlight file #15/176
+Initializing searchlight file #16/176
+Initializing searchlight file #17/176
+Initializing searchlight file #18/176
+Initializing searchlight file #19/176
+Initializing searchlight file #20/176
+Initializing searchlight file #21/176
+Initializing searchlight file #22/176
+Initializing searchlight file #23/176
+Initializing searchlight file #24/176
+Initializing searchlight file #25/176
+Initializing searchlight file #26/176
+Initializing searchlight file #27/176
+Initializing searchlight file #28/176
+Initializing searchlight file #29/176
+Initializing searchlight file #30/176
+Initializing searchlight file #31/176
+Initializing searchlight file #32/176
+Initializing searchlight file #33/176
+Initializing searchlight file #34/176
+Initializing searchlight file #35/176
+Initializing searchlight file #36/176
+Initializing searchlight file #37/176
+Initializing searchlight file #38/176
+Initializing searchlight file #39/176
+Initializing searchlight file #40/176
+Initializing searchlight file #41/176
+Initializing searchlight file #42/176
+Initializing searchlight file #43/176
+Initializing searchlight file #44/176
+Initializing searchlight file #45/176
+Initializing searchlight file #46/176
+Initializing searchlight file #47/176
+Initializing searchlight file #48/176
+Initializing searchlight file #49/176
+Initializing searchlight file #50/176
+Initializing searchlight file #51/176
+Initializing searchlight file #52/176
+Initializing searchlight file #53/176
+Initializing searchlight file #54/176
+Initializing searchlight file #55/176
+Initializing searchlight file #56/176
+Initializing searchlight file #57/176
+Initializing searchlight file #58/176
+Initializing searchlight file #59/176
+Initializing searchlight file #60/176
+Initializing searchlight file #61/176
+Initializing searchlight file #62/176
+Initializing searchlight file #63/176
+Initializing searchlight file #64/176
+Initializing searchlight file #65/176
+Initializing searchlight file #66/176
+Initializing searchlight file #67/176
+Initializing searchlight file #68/176
+Initializing searchlight file #69/176
+Initializing searchlight file #70/176
+Initializing searchlight file #71/176
+Initializing searchlight file #72/176
+Initializing searchlight file #73/176
+Initializing searchlight file #74/176
+Initializing searchlight file #75/176
+Initializing searchlight file #76/176
+Initializing searchlight file #77/176
+Initializing searchlight file #78/176
+Initializing searchlight file #79/176
+Initializing searchlight file #80/176
+Initializing searchlight file #81/176
+Initializing searchlight file #82/176
+Initializing searchlight file #83/176
+Initializing searchlight file #84/176
+Initializing searchlight file #85/176
+Initializing searchlight file #86/176
+Initializing searchlight file #87/176
+Terminated

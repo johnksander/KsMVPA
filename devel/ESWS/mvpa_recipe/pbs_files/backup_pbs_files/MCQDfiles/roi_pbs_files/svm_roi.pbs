@@ -1,0 +1,9 @@
+#!/bin/tcsh
+
+#PBS -l mem=5gb,nodes=1:ppn=1,walltime=15:00:00
+
+module load matlab/2014a
+
+cd MCQD_JohnK/mvpa_recipe
+
+matlab -nodisplay -nodesktop -nosplash -r svm_roi_main_script

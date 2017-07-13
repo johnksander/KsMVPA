@@ -1,0 +1,6 @@
+function sphere_voxels = find_SL_data4linus_helperfunc(vs,x,y,z,searchlight_radius)
+
+[emptyx, emptyy, emptyz] = meshgrid(1:vs(2),1:vs(1),1:vs(3));
+sphere_voxels = logical((emptyx - y(1)).^2 + ...
+            (emptyy - x(1)).^2 + (emptyz - z(1)).^2 ...
+            <= searchlight_radius.^2); %adds a logical searchlight mask centered on the coordinates sphere_x/y/z_coord
