@@ -1,23 +1,25 @@
-function RSAoutput = RSA_roi(subject_file_pointers,options)
+function output_coeffs = RSA_roi(subject_file_pointers,options)
 
 %GOALS:::
-%   0. Initialize variables and load behavioral data
-%   1. make hypothesis matrix
-%   3. load brain data & assemble RDM
-%   4. Test RDM
+%   0. Initialize variables
+%   1. load behavioral data
+%   2. load premade stimuli RDMs
+%   3. make hypothesis matrix
+%   4. load brain data & assemble RDM
+%   5. Test RDM
 
-%0. Initialize variables
+%0.    Initialize variables
+valid_subs = ~ismember(options.subjects,options.exclusions)';
+trials2cut = find_endrun_trials(options); %find behavioral trials without proper fmri data
+output_coeffs = cell(numel(options.subjects),numel(options.roi_list),numel(options.behavioral_file_list));
 subject_behavioral_data = cell(numel(options.subjects),numel(options.behavioral_file_list));
-roiRDMs = cell(1,numel(options.roi_list));
-p_values = NaN(1,numel(options.roi_list));
-CIs = NaN(2,numel(options.roi_list));
-hyp_similarity = NaN(1,numel(options.roi_list));
-%load all behavioral data for all subjs
+subject_behavior_models = cell(numel(options.subjects),1);
 for idx = 1:numel(options.subjects)
     if ismember(options.subjects(idx),options.exclusions) == 1
         %Don't do anything
     else
         for beh_idx = 1:numel(options.behavioral_file_list),
+            %   1. load behavioral data
             BehFname = [options.behavioral_file_list{beh_idx} '_' num2str(options.subjects(idx)) '.txt'];
             my_files = prepare_fp(options,options.TRfile_dir,BehFname);
             beh_matrix = load_behav_data(my_files,options);
@@ -29,193 +31,150 @@ for idx = 1:numel(options.subjects)
                     %not implemented?
                 case 'origin_split'
                     if options.subjects(idx) < 200
-                        beh_matrix(~isnan(beh_matrix)) = 0; %US
+                        beh_matrix(~isnan(beh_matrix)) = 1; %US
                     elseif options.subjects(idx) > 200
-                        beh_matrix(~isnan(beh_matrix)) = 1; %EA
+                        beh_matrix(~isnan(beh_matrix)) = 2; %EA
                     end
-                    
                     switch options.rawdata_type
                         case 'anatom'
                             if options.subjects(idx) < 200
-                                beh_matrix = 0; %US
+                                beh_matrix = 1; %US
                             elseif options.subjects(idx) > 200
-                                beh_matrix = 1; %EA
+                                beh_matrix = 2; %EA
                             end
                     end
-                    
             end
-            subject_behavioral_data{idx,beh_idx} = beh_matrix;
+            beh_matrix = clean_endrun_trials(beh_matrix,trials2cut,idx); %remove behavioral trials without proper fmri data
+            subject_behavioral_data{idx,beh_idx} = beh_matrix; %subject_behavioral data NOT to be altered after this point
+            %   2. load premade stimuli RDMs
+            mdlFname = sprintf('%s_RDM_%s_%i.mat',options.dataset,options.model2test,options.subjects(idx));
+            mdlFname = fullfile(options.TRfile_dir,mdlFname);
+            beh_mdl = load(mdlFname);
+            beh_mdl = beh_mdl.RDM;
+            beh_mdl = clean_endrun_trials(beh_mdl,trials2cut,idx); %remove behavioral trials without proper fmri data
+            beh_mdl = clean_endrun_trials(beh_mdl',trials2cut,idx); %now do it the other way, remove corresponding other dimension
+            subject_behavior_models{idx} = beh_mdl;
         end
     end
 end
 
-switch  options.trial_temporal_compression
-    case 'on'
-        untransformed_behavior = subject_behavioral_data;
-        %create a copy for trial compression
-        %compression function transforms subject_behavioral_data, gets messed up when it cycles to the next roi
-end
-
-
-%1. hypothesis matrix
-Hmat = options.subjects(~ismember(options.subjects,options.exclusions)); %kick out exclusions at the beginning
-Hmat(Hmat < 200) = 1;
-Hmat(Hmat > 200) = 2;
-Hmat = Hmat' * Hmat;
-Hmat(Hmat ~= 2) = 1; %similar (within group)
-Hmat(Hmat == 2) = 0; %dissimilar
-%note, 1 = similar here because we're not doing "disimilarity matricies", just similarity matricies
-
-%alternate hypotheses
-%Hmat(Hmat ~= 1) = 0;
-%-------
-%Hmat(Hmat == 4) = 0;
-%Hmat(Hmat == 2) = .5;  
 
 %Begin loops
-fprintf(':::RSA data:::\r')
+fprintf(':::Starting region-of-interest RSA:::\r')
 for roi_idx = 1:numel(options.roi_list)
     subject_brain_data = cell(numel(options.subjects),1);
-    roi_subject_trials = cell(size(subject_behavioral_data));
+    CVbeh_data = cell(size(subject_behavioral_data));
     disp(sprintf('loading brain data for roi #%i %s',roi_idx,options.rois4fig{roi_idx}))
-    %load all brain data
     for subject_idx = 1:numel(options.subjects)
-        if ismember(options.subjects(subject_idx),options.exclusions) == 1
-            %Don't do anything
-        else
-            load(subject_file_pointers{subject_idx,roi_idx});
-            
-            run_index = make_runindex(options,idx); %make run index
-            data_matrix = zscore(data_matrix); %normalize subject-wise (see comment mess below)
-            
-            switch options.lag_type
-                case 'single'
-                case 'average'
-                    data_matrix = conv_TRwindow(data_matrix,run_index,options.running_average_window);
-            end
-            
-            lagged_data = HDRlag(data_matrix,run_index,options.tr_delay); %lag data
-
-            switch options.trial_temporal_compression %termporal compression
+        if ismember(options.subjects(subject_idx),options.exclusions) == 0
+            %   4. load brain data & assemble RDM
+            CVbeh_data(subject_idx,:) = subject_behavioral_data(subject_idx,:); %pass behavioral data
+            run_index = make_runindex(options); %make run index
+            data_matrix = load(subject_file_pointers{subject_idx,roi_idx});
+            data_matrix = data_matrix.data_matrix;
+            data_matrix = HDRlag(options,data_matrix,run_index); %lag data, average over window (if specified)
+            data_matrix = clean_endrun_trials(data_matrix,trials2cut,subject_idx);%remove behavioral trials without proper fmri data
+            [data_matrix,CVbeh_data{subject_idx}] = select_trials(data_matrix,CVbeh_data{subject_idx});%select trials
+            run_index = clean_endrun_trials(run_index,trials2cut,subject_idx);%match run index to valid fmri trials
+            %normalization/termporal compression
+            switch options.normalize_space
                 case 'on'
-                    [lagged_data,subject_behavioral_data{subject_idx}] = temporal_compression(lagged_data,untransformed_behavior{subject_idx},options);
+                    for ridx = 1:numel(unique(run_index))
+                        curr_run = unique(run_index);
+                        curr_run = run_index == curr_run(ridx);
+                        data_matrix(curr_run,:) = bsxfun(@minus,data_matrix(curr_run,:),mean(data_matrix(curr_run,:))); %mean subtract voxel-wise
+                        data_matrix(curr_run,:) = minmax_normdata(data_matrix(curr_run,:)); %minmax normalize voxel-wise
+                    end
+            end
+            switch options.trial_temporal_compression
+                case 'on'
+                    [data_matrix,CVbeh_data{subject_idx}] = temporal_compression(data_matrix,CVbeh_data{subject_idx},options);
+                case 'runwise'
+                    [data_matrix,CVbeh_data{subject_idx}] = temporal_compression_runwise(data_matrix,CVbeh_data{subject_idx},run_index);
                 case 'off'
-                    [lagged_data,roi_subject_trials{subject_idx}] = select_trials(lagged_data,subject_behavioral_data{subject_idx});
+                    %data_matrix = zscore(data_matrix); %normalize subject-wise
+            end
+            
+            switch options.normalize_space
+                case 'on'
+                    data_matrix = bsxfun(@minus,data_matrix,mean(data_matrix,2)); %mean subtract across space
+                    data_matrix = minmax_normdata(data_matrix'); %min/max scale across space
+                    data_matrix = data_matrix'; %transpose b/c function works row-wise
+            end
+            
+            switch options.cocktail_blank
+                case 'runwise' %watch out for this if you try to combine with spatial normalization...
+                    data_matrix = cocktail_blank_normalize(data_matrix,run_index);
+                    disp('voxels set to zero mean & unit variance: run wise')
+                case 'off'
+                    disp('WARNING: skipping cocktail blank removal')
             end
             
             
-            subject_brain_data{subject_idx} = lagged_data; %return data to brain data array
             
+            subject_brain_data{subject_idx} = data_matrix;
             
+            behaviorRDM = subject_behavior_models{subject_idx};
+            mat2vec_mask = logical(triu(ones(size(behaviorRDM)),1));%reduce to upper triangular vector
+            behaviorRDM = behaviorRDM(mat2vec_mask);
             
-            %subject_brain_data{subject_idx} = zscore(lagged_data); %NEED TO NORMALIZE EACH SUBJECT!!!
-            %09/07/15: across run normalization for each roi added to preallocate searchlight rois function (shouldn't normalize after lagging anyways, extra filler TR data added in lagging procedure)
-            %10/7/15: on second thought, data was normalizedrun-wise in preprocessing- we'll need to normalize whole subject data here (takes care of train-to-test normalization
-            %11/2/15: subject-wise normalization removed from preprocess (preallocate) searchlight rois function. This is taken care of here before lagging
+            brainRDM = RSA_constructRDM(data_matrix,options); %make brain RDM
+            brainRDM = brainRDM(mat2vec_mask); %vectorize
             
+            %   5. Test RDM
+            switch options.RDM_dist_metric
+                case 'spearman'
+                    model_fit = corr(brainRDM,behaviorRDM,'type','Spearman');
+                    model_fit = atanh(model_fit); %fisher Z transform
+            end
+            
+            output_coeffs{subject_idx} = model_fit;
             
         end
     end
     
-   keyboard
-    %04/08/15: setting curr_num_centroids moved to pca_kmeans function
-    
-    for beh_idx = 1:numel(options.behavioral_file_list) %Cycle through valence levels, performing classification on each
-        curr_behavioral_data = subject_behavioral_data(:,beh_idx);
-        %disp(sprintf('roi #%i: classifying subjects for behavior level #%i ',roi_idx,beh_idx))
-        
-        brain_data = cell2mat(subject_brain_data);
-        switch options.feature_selection
-            case 'pca_only'
-                brain_data = RSA_pca(brain_data,options);
-        end
-        RDM = RSA_constructRDM(brain_data,options);
-        %make a figure
-        figure(roi_idx)
-        figRDM = RDM;
-        figRDM(logical(eye(size(figRDM)))) = 0;
-        imagesc(figRDM)
-        title(options.rois4fig{roi_idx})
-        roiRDMs{roi_idx} = figRDM; %store for output
-        %now do an actual analysis 
-        RDM = RDM(~logical(eye(size(RDM))));
-        RDM = atanh(RDM);
-        testHmat = Hmat(~logical(eye(size(Hmat))));
-        result = corr(RDM,testHmat,'type','Spearman');
-        disp(sprintf('roi: %s, spearman-to-hypothesis = %.3f',options.rois4fig{roi_idx},result));
-        %do statistics
-        num_perms = 1;
-        ci_range = 90;
-        nulldist = NaN(num_perms,1);
-        rng('shuffle')
-        for permidx = 1:num_perms
-            if mod(permidx,1000) == 0;disp(sprintf('permutation %i/%i',permidx,num_perms));end
-            pMat = randperm(numel(testHmat))';
-            pMat = testHmat(pMat);
-            nulldist(permidx) = corr(RDM,pMat,'type','Spearman');
-        end
-        p_values(roi_idx) = (sum(nulldist > result) + 1) ./ (num_perms + 1); %adjust for 0 p-values
-        ci_low = 50 - ci_range/2;
-        ci_high = 100 - ci_low;
-        CIs(:,roi_idx) = cat(1,prctile(nulldist,ci_low),prctile(nulldist,ci_high));
-        hyp_similarity(roi_idx) = result;
-    end
 end
+keyboard
 
-RSAoutput.roiRDMs = roiRDMs;
-RSAoutput.Hmat = Hmat;
-RSAoutput.hyp_similarity = hyp_similarity;
-RSAoutput.p_values = p_values;
-RSAoutput.CIs = CIs;
-
-
-
-
-
-        
-        
-%         
-%         %subjects already excluded, don't need if statment here
-%         cv_params = struct();%initialize stucture for parfor loop
-%         testing_subjects = twofold_combos(:,test_sub_combo);
-%         training_subjects = ~ismember(subject_inds,testing_subjects) & ~isnan(subject_inds); %protect against exclusions
-%         testing_subjects = ismember(subject_inds,testing_subjects);
-%         training_data = subject_brain_data; %prevent subject_brain_data from broadcasting
-%         training_data = cell2mat(training_data(training_subjects));
-%         testing_data = subject_brain_data; %prevent subject_brain_data from broadcasting
-%         testing_data = cell2mat(testing_data(testing_subjects));
-%         testing_labels = cell2mat(true_labels(testing_subjects)); %give true label to testing subjects
-%         training_labels = cell2mat(permd_labels(training_subjects)); %give permuted labels to training subjects
-%         [testing_data,testing_labels] = select_trials(testing_data,testing_labels);
-%         [training_data,training_labels] = select_trials(training_data,training_labels);
-%         
-%         
-%         
-%         parfor test_sub_combo = 1:numel(L2Ocombos(1,:))
+%     %Remove exclusions from both brain & behavior data
+%     subject_inds = options.subjects(valid_subs)';
+%     CVbeh_data = CVbeh_data(valid_subs,:);
+%     subject_brain_data = subject_brain_data(valid_subs);
+%     subject_behavior_models = subject_behavior_models(valid_subs);
+%     %set up inds for leave out CV scheme
+%     subject_inds = match_subinds2data(subject_inds,subject_brain_data); %make subject inds match the data (num scans etc)
+%     CVbeh_data = cell2mat(CVbeh_data); %now everything can be a matrix
+%     subject_brain_data = cell2mat(subject_brain_data); %now everything can be a matrix
+%     %subject_brain_data = zscore(subject_brain_data); %!!!!normalize across "conditions"!!!!
+%     fprintf('WARNING: skipping cocktail blank removal\r')
+%
+%     for beh_idx = 1:numel(options.behavioral_file_list) %Cycle through valence levels, performing classification on each
+%         curr_behavioral_data = CVbeh_data(:,beh_idx);
+%         disp(sprintf('roi #%i: classifying subjects for behavior level #%i ',roi_idx,beh_idx))
+%
+%         parfor test_sub_combo = 1:numel(subs2LO(1,:))
 %             %subjects already excluded, don't need if statment here
-%             %put everything into matricies beforehand, just so I can be cautious with indexing (logicial vectors are a diff size)
-%             training_data = subject_brain_data; %prevent subject_brain_data from broadcasting
-%             testing_data = cell2mat(training_data); %avoid doubling up on the matrix here, just use the training data
-%             training_data = cell2mat(training_data);
-%             testing_labels = cell2mat(curr_behavioral_data);
-%             training_labels = cell2mat(curr_behavioral_data);
-%             %ok now do cv loop
 %             cv_params = struct();%initialize stucture for parfor loop
-%             testing_subject = L2Ocombos(:,test_sub_combo);
+%             %subject logicals
+%             testing_subject = subs2LO(:,test_sub_combo);
 %             training_subjects = ~ismember(subject_inds,testing_subject);
 %             testing_subject = ~training_subjects; %just to make it explicit
-%             training_data = training_data(training_subjects,:);
-%             testing_data = testing_data(testing_subject,:);
-%             testing_labels = testing_labels(testing_subject);
-%             training_labels = training_labels(training_subjects);
+%             %class labels
+%             training_labels = curr_behavioral_data(training_subjects);
+%             testing_labels = curr_behavioral_data(testing_subject);
+%             %testing/training data
+%             training_data = subject_brain_data(training_subjects,:); %prevent subject_brain_data from broadcasting (update, it's broadcasting here dummy)
+%             testing_data = subject_brain_data(testing_subject,:);
+%             %select trials
 %             [testing_data,testing_labels] = select_trials(testing_data,testing_labels);
 %             [training_data,training_labels] = select_trials(training_data,training_labels);
+%
 %             switch options.feature_selection
 %                 case 'off'
-%                     
+%
 %                     cv_params.fe_testing_data = testing_data; %put data straight into fe_x, avoid duplicating data matricies
 %                     cv_params.fe_training_data = training_data;
-%                     
+%
 %                 case 'pca_only'
 %                     %1a. make cv_params struct for pca_kmeans function
 %                     cv_params.testing_data = testing_data;
@@ -235,4 +194,9 @@ RSAoutput.CIs = CIs;
 %             %2b. Insert classifier
 %             cv_guesses = options.classifier_type(cv_params,options);
 %             %cv_guesses = cat_cv_inds({cv_guesses});
-%             predictions{test_sub_combo,roi_idx,beh_idx} = cv_guesses;
+%             output_coeffs{test_sub_combo,roi_idx,beh_idx} = cv_guesses;
+%         end
+%     end
+%end
+
+

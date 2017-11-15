@@ -1,0 +1,8 @@
+clear
+clc
+format compact
+
+%preprocess_LOSO
+ctrl_searchlight_ROI_followup
+ctrl_searchlight_ROI_followup_perm
+ctrl_stats

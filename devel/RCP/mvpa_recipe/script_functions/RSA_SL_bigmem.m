@@ -22,7 +22,7 @@ vol_size = options.scan_vol_size; %just make var name easier
 trials2cut = find_endrun_trials(options); %find behavioral trials without proper fmri data
 subject_fmri_filepointers = load(fullfile(options.preproc_data_dir,'preproc_data_file_pointers'));
 subject_fmri_filepointers = subject_fmri_filepointers.preproc_data_file_pointers;
-                
+
 output_log = fullfile(options.save_dir,'output_log.txt');
 special_progress_tracker = fullfile(options.save_dir,'SPT.txt');
 
@@ -54,17 +54,36 @@ for idx = 1:numel(options.subjects)
             my_files = prepare_fp(options,options.TRfile_dir,BehFname);
             beh_matrix = load_behav_data(my_files,options);
             switch options.behavioral_transformation %hardcoding this sorta
-                case 'R'
-                    encoding_trials = ismember(beh_matrix(:,3),options.enc_runs) & ~isnan(beh_matrix(:,4));
+                case 'Rmemory_retrieval'
+                    retrieval_trials = ismember(beh_matrix(:,3),options.ret_runs) & ~isnan(beh_matrix(:,4));
                     correctRtrials = beh_matrix(:,5) == 1 & beh_matrix(:,6) == 1; %only correct "remember" responses
                     trialtype_matrix = NaN(size(beh_matrix(:,4)));
-                    trialtype_matrix(encoding_trials) = beh_matrix(encoding_trials,4);
-                    trialtype_matrix(correctRtrials) = beh_matrix(correctRtrials,4);
+                    trialtype_matrix(retrieval_trials & correctRtrials) = ...
+                        beh_matrix(retrieval_trials & correctRtrials,4); %take valence for retrieval R trials 
                 case 'encoding_valence'
                     encoding_trials = ismember(beh_matrix(:,3),options.enc_runs) & ~isnan(beh_matrix(:,4));
                     trialtype_matrix = NaN(size(beh_matrix(:,4)));
                     trialtype_matrix(encoding_trials) = beh_matrix(encoding_trials,4); %only take valence ratings during encoding
+                case 'retrieval_valence'
+                    retrieval_trials = ismember(beh_matrix(:,3),options.ret_runs) & ~isnan(beh_matrix(:,4));
+                    retrieval_lures = ismember(beh_matrix(:,3),options.ret_runs) & beh_matrix(:,4) == 0;
+                    trialtype_matrix = NaN(size(beh_matrix(:,4)));
+                    trialtype_matrix(retrieval_trials) = beh_matrix(retrieval_trials,4); %only take valence ratings during encoding
+                    %think about whether you want to include lures in valence RDM at all (or coded back in as neutral trials)
+                    trialtype_matrix(retrieval_lures) = NaN; %they don't have a memory component, pretty different I'm excluding
             end
+            
+            switch options.treat_special_stimuli %special treatment... 
+                case 'faces_and_scenes'
+                    special_trials = beh_matrix(:,7);
+                    special_trials(special_trials == 2) = -1; %make scene trials a neg val 
+                    trialtype_matrix(~isnan(trialtype_matrix)) = ...
+                    trialtype_matrix(~isnan(trialtype_matrix)) .* special_trials(~isnan(trialtype_matrix));
+                    %now all the scenes are negative, faces are positive.
+                    %Temporal compression functions will treat them seperately 
+            end
+            
+            
             trialtype_matrix = clean_endrun_trials(trialtype_matrix,trials2cut,idx); %remove behavioral trials without proper fmri data
             subject_behavioral_data{idx,beh_idx} = trialtype_matrix; %subject_behavioral data NOT to be altered after this point
             subject_run_index{idx,beh_idx} = beh_matrix(:,3); %store subject run index for all trials
@@ -122,9 +141,9 @@ for roi_idx = 1:numel(options.roi_list)
     commonvox_maskdata = fullfile(options.preproc_data_dir,['commonvox_' options.roi_list{roi_idx}]);
     commonvox_maskdata =  spm_read_vols(spm_vol(commonvox_maskdata));
     [searchlight_inds,seed_inds] = preallocate_searchlights(commonvox_maskdata,options.searchlight_radius); %grow searchlight sphere @ every included voxel
-%     searchlight_inds = load('SLinds_1p5thr10.mat'); %just for debugging
-%     seed_inds = searchlight_inds.seed_inds;
-%     searchlight_inds = searchlight_inds.searchlight_inds;
+    %     searchlight_inds = load('SLinds_1p5thr10.mat'); %just for debugging
+    %     seed_inds = searchlight_inds.seed_inds;
+    %     searchlight_inds = searchlight_inds.searchlight_inds;
     update_logfile('Searchlight indexing complete',output_log)
     update_logfile(['--Total valid searchlights: ' num2str(numel(seed_inds))],output_log)
     %4. loop through subjects
@@ -163,9 +182,9 @@ for roi_idx = 1:numel(options.roi_list)
             end
             switch options.trial_temporal_compression
                 case 'on'
-                    [data_matrix,CVbeh_data{subject_idx}] = GNBtemporal_compression(data_matrix,CVbeh_data{subject_idx},options);
+                    [searchlight_brain_data,CVbeh_data] = GNBtemporal_compression(searchlight_brain_data,CVbeh_data,options);
                 case 'runwise'
-                    [data_matrix,CVbeh_data{subject_idx}] = GNB_Tcomp_runwise(data_matrix,CVbeh_data{subject_idx},run_index);
+                    [searchlight_brain_data,CVbeh_data] = GNB_Tcomp_runwise(searchlight_brain_data,CVbeh_data,run_index);
                 case 'off'
                     %nada
             end
@@ -174,7 +193,10 @@ for roi_idx = 1:numel(options.roi_list)
             [seed_x,seed_y,seed_z] = ind2sub(vol_size(1:3),seed_inds);
             
             %   6. make hypothesis matrix
-            
+            switch options.treat_special_stimuli %special treatment...
+                case 'faces_and_scenes' %face and scene distinction goes away now, just valence 
+                    CVbeh_data = abs(CVbeh_data); 
+            end
             %build RSA model from behavioral data (always disimilarity matrix!!!)
             behavior_model = abs(repmat(CVbeh_data,1,numel(CVbeh_data)) - repmat(CVbeh_data',numel(CVbeh_data),1));
             %reduce to upper triangular vector
@@ -186,10 +208,9 @@ for roi_idx = 1:numel(options.roi_list)
             parfor searchlight_idx = 1:numel(seed_inds)
                 switch options.parforlog %parfor progress tracking
                     case 'on'
-                        txtappend(special_progress_tracker,'1\n')
-                        progress = load(special_progress_tracker);
-                        if mod(sum(progress),numel(seed_inds) * .005) == 0 %.5 percent
-                            progress = (sum(progress) /  numel(seed_inds)) * 100;
+                        progress = worker_progress_tracker(special_progress_tracker);
+                        if mod(progress,floor(numel(seed_inds) * .005)) == 0 %.5 percent
+                            progress = (progress / numel(seed_inds)) * 100;
                             message = sprintf('Searchlight RSA %.1f percent complete',progress);
                             update_logfile(message,output_log)
                         end
@@ -197,13 +218,17 @@ for roi_idx = 1:numel(options.roi_list)
                 
                 current_searchlight = searchlight_brain_data(:,:,searchlight_idx);
                 RDM = RSA_constructRDM(current_searchlight,options);
-                RDM = RDM(mat2vec_mask); %take upper triangular vector 
+                RDM = RDM(mat2vec_mask); %take upper triangular vector
                 %   8. test RDM
-                model_fit = []; %initalize so it doesn't complain 
+                model_fit = []; %initalize so it doesn't complain
                 switch options.RDM_dist_metric
                     case 'spearman'
-                     model_fit = corr(RDM,behavior_model,'type','Spearman');
-                     model_fit = atanh(model_fit); %fisher Z transform 
+                        model_fit = corr(RDM,behavior_model,'type','Spearman');
+                        model_fit = atanh(model_fit); %fisher Z transform
+                    case 'kendall'
+                        model_fit = kendall_tau([RDM,behavior_model]);
+                        model_fit = diag(model_fit,1); %get the off diagonal value 
+                        model_fit = atanh(model_fit); %fisher Z transform
                 end
                 
                 %   9. store RDM fits to behavioral RDM

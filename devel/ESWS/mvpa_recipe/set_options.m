@@ -58,6 +58,8 @@ switch options.dataset
     case 'ESWS'
         options.subjects = [101:120 201:220];
         options.exclusions = [];
+        options.demos_gender = [2,2,2,2,2,2,2,2,1,2,1,2,2,2,1,2,...
+            2,2,2,2,2,2,1,1,2,1,1,1,2,2,2,2,1,1,1,2,2,1,2,1]; %for reviewer follow-up analysis
         options.which_behavior = 1;
         options.behavioral_transformation = config_options.behavioral_transformation;
         switch options.behavioral_measure

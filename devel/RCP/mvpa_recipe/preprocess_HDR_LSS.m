@@ -2,7 +2,7 @@ clear
 clc
 format compact
 
-aname = 'RCP_ASGM_preproc';
+aname = 'RCP_VMGM_preproc';
 num_workers = 32; %upsampling is parfor'd
 
 %----name---------------------------------------------------
@@ -18,7 +18,7 @@ config_options.feature_selection = 'off';
 config_options.normalization = 'off'; 
 %----fMRI-data-specification--------------------------------
 config_options.rawdata_type = 'unsmoothed_raw'; % 'unsmoothed_raw' | dartel_raw | 'LSS_eHDR' | SPMbm | 'anatom' 
-config_options.LSSid = 'ASGM'; %LSS model ID (or SPMbm ID)
+config_options.LSSid = 'VMGM'; %LSS model ID (or SPMbm ID)
 config_options.searchlight_radius = 1.5;
 config_options.roi_list = {'gray_matter.nii'};   
 config_options.rois4fig = {'gray_matter'};  
@@ -27,7 +27,7 @@ config_options.TR_delay = 0;
 config_options.TR_avg_window = 0;
 config_options.remove_endrun_trials = 0;
 %-----behavioral-data-settings------------------------------
-config_options.behavioral_transformation = 'none';
+config_options.behavioral_transformation = 'valence';
 config_options.behavioral_measure = 'allstim';
 %----classifier---------------------------------------------
 config_options.classifier = @GNB; %only matters for adding GNB func paths  
@@ -37,11 +37,12 @@ options = set_options(config_options);
 %----LSS-estimation-settings--------------------------------
 %options.trialtypes = {'Rneg','Rneu','Rpos','notR'}; 
 %options.trialtypes = {'Rneg','Rneu','Rpos'}; %I think "not R" just gets all the trials that aren't specified here..  
-options.trialtypes = {}; %just estimate all trials 
+%options.trialtypes = {}; %just estimate all trials 
+options.trialtypes = {'neg','neu','pos','lure'}; %I think "not R" just gets all the trials that aren't specified here..  
 options.LSSintercept = 'on';
 options.LSStvals = 'on';
 options.LSSmotion_params = 'off';
-options.LSSid = 'ASGM'; %reset LSS id, set_options doesn't want to take it for unsmoothed_raw parameter
+options.LSSid = 'VMGM'; %reset LSS id, set_options doesn't want to take it for unsmoothed_raw parameter
 options.TR_upsample = 2; %assuming 2 second TRs, upsample each to 1 second events
 options.trial_length = 3; %in seconds, also for upsampled data.. 
 %----------------------------------------------------------- 
@@ -54,6 +55,11 @@ parpool(c,c.NumWorkers,'IdleTimeout',Inf,'AttachedFiles',{addthis})
 
 estimate_HDR_LSS(options);
 delete(gcp('nocreate'))
+
+
+%---cleanup-------------------
+driverfile = mfilename;
+backup_jobcode(driverfile,options)
 
 
 %configuration for "RGM model 

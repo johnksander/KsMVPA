@@ -2,8 +2,9 @@ clear
 clc
 format compact
 
-aname = 'RSA_SL_1p5_ASGM_encodingValence';
-num_workers = 32; %parpool workers
+aname = 'RSA_SL_2p5_ASGM_encodingValence';
+num_workers = 30; %parpool workers
+
 
 %----name---------------------------------------------------
 config_options.name = aname;
@@ -19,7 +20,7 @@ config_options.feature_selection = 'off';
 %----fMRI-data-specification--------------------------------
 config_options.rawdata_type = 'LSS_eHDR'; % 'unsmoothed_raw' | dartel_raw | 'LSS_eHDR' | SPMbm | 'anatom' 
 config_options.LSSid = 'ASGM'; %LSS model ID (or SPMbm ID)
-config_options.searchlight_radius = 1.5;
+config_options.searchlight_radius = 2.5;
 config_options.roi_list = {'gray_matter.nii'};   
 config_options.rois4fig = {'gray_matter'};  
 %----TR-settings--------------------------------------------
@@ -35,7 +36,7 @@ config_options.performance_stat = 'none'; %accuracy | Fscore
 %----------------------------------------------------------- 
 options = set_options(config_options);
 options.parforlog = 'off';
-options.RDM_dist_metric = 'spearman';
+options.RDM_dist_metric = 'spearman'; %'spearman' | 'kendall'
 
 
 files2attach = {which('RSA_constructRDM.m')};
@@ -54,3 +55,7 @@ delete(gcp('nocreate'))
 save(fullfile(options.save_dir,[options.name '_braincells']),'brain_cells','searchlight_cells','options')
 results_brain2nii(options)
 %you might be able to do away with the output brain stuff, just keep searchlight output 
+
+%---cleanup-------------------
+driverfile = mfilename;
+backup_jobcode(driverfile,options)

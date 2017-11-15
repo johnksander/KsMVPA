@@ -1,9 +1,13 @@
 function options = set_bigmem_options2linus(options)
 %convert bigmem filepaths in options file to linus filpathes
 
-bigmem_basedir = '/data/netapp/jksander/';
-linus_basedir = '/home/acclab/Desktop/ksander/';
-
+if strcmp(options.dataset,'RCP')
+    bigmem_basedir = '/data/netapp/jksander/RCPholly/';
+    linus_basedir = '/home/acclab/Desktop/ksander/holly_mvpa/';
+else
+    bigmem_basedir = '/data/netapp/jksander/';
+    linus_basedir = '/home/acclab/Desktop/ksander/';
+end
 
 optfields = fieldnames(options);
 for idx = 1:numel(optfields)

@@ -37,3 +37,8 @@ options = set_options(config_options);
 
 
 preproc_data_file_pointers = LOSO_SL_preprocess_data(options);
+
+
+%---cleanup-------------------
+driverfile = mfilename;
+backup_jobcode(driverfile,options)

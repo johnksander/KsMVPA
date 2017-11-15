@@ -37,12 +37,15 @@ for idx = 1:numel(options.subjects)
                     trialtype_beh_matrix(encoding_trials) = beh_matrix(encoding_trials,4);
                     trialtype_beh_matrix(correctRtrials) = beh_matrix(correctRtrials,4);
                     beh_matrix = beh_matrix(:,4); %select behavioral rating
+                case 'valence' %for "VMGM" preproc. Model valences seperately
+                    trialtype_beh_matrix = beh_matrix(:,4); %valence types including extra retrieval lure type
+                    beh_matrix = beh_matrix(:,4); %get valences
                 case 'none'
                     if ~isempty(options.trialtypes)
                         disp('ERROR: behavioral transformation = none & options.trialtypes has data!!!')
                         return
                     end
-                    beh_matrix = beh_matrix(:,options.which_behavior); %select behavioral rating 
+                    beh_matrix = beh_matrix(:,options.which_behavior); %select behavioral rating
                     trialtype_beh_matrix = NaN(size(beh_matrix)); %trial type does not matter 
             end
             
@@ -60,6 +63,7 @@ for idx = 1:numel(options.subjects)
             %collapse into single vector
             
             beh_matrix(~isnan(beh_matrix)) = 0; %mark all trials
+            %watch out with the above line, may conflict with how retrieval lures are coded (also as 0)  
             beh_matrix(~isnan(trialtype_beh_matrix)) = trialtype_beh_matrix(~isnan(trialtype_beh_matrix)); %mark all other trials of interest
             subject_behavioral_data{idx,beh_idx} = beh_matrix;
         end

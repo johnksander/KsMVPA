@@ -5,6 +5,11 @@ switch options.RDM_dist_metric
     case 'spearman'
         RDM = pdist2(brain_data,brain_data,'spearman'); %this gives "dissimilarity" 1 - spearman
         %RDM = corr(brain_data','type','Spearman','rows','pairwise'); %this gives regular spearman (similarity matrix)
+    case 'kendall'
+        RDM = pdist2(brain_data,brain_data,'spearman'); %this gives "dissimilarity" 1 - spearman
+        %the brain data really isn't ever going to have ties, it's the model(s) that'll have that issue
+        %just have options.options.RDM_dist_metric = 'kendall' do spearman here to avoid creating another 
+        %options field to specify that brain RDMs get computed with spearman, but the models compared with kendall etc.. 
     case 'euclid'
         RDM = pdist2(brain_data,brain_data,'euclidean');
 

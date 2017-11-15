@@ -22,7 +22,7 @@ vol_size = options.scan_vol_size; %just make var name easier
 trials2cut = find_endrun_trials(options); %find behavioral trials without proper fmri data
 subject_fmri_filepointers = load(fullfile(options.preproc_data_dir,'preproc_data_file_pointers'));
 subject_fmri_filepointers = subject_fmri_filepointers.preproc_data_file_pointers;
-                
+
 output_log = fullfile(options.save_dir,'output_log.txt');
 special_progress_tracker = fullfile(options.save_dir,'SPT.txt');
 
@@ -81,7 +81,7 @@ for roi_idx = 1:numel(options.roi_list)
     end
     message = sprintf('ROI: %s\n',options.rois4fig{roi_idx});
     update_logfile(message,output_log)
-   
+    
     %4. loop through subjects
     for subject_idx = 1:numel(options.subjects)
         if ismember(options.subjects(subject_idx),options.exclusions) == 0
@@ -100,7 +100,7 @@ for roi_idx = 1:numel(options.roi_list)
             run_index = run_index(trial_selector); %run index
             CVbeh_data = CVbeh_data(trial_selector); %behavior/trial labels
             %---treat the brain data as needed...
-            brain_data = remove_badvoxels(brain_data);            
+            brain_data = remove_badvoxels(brain_data);
             %data_matrix = HDRlag(options,data_matrix,run_index); %lag data, average over window (if specified)
             %07/20/2016: lag data is disabled for this script, use HDR modeled data
             %would need to clean end run trials from fmri data here
@@ -110,7 +110,7 @@ for roi_idx = 1:numel(options.roi_list)
             %normalization/termporal compression
             switch options.normalization
                 case 'runwise'
-                     brain_data = cocktail_blank_normalize(brain_data,run_index);
+                    brain_data = cocktail_blank_normalize(brain_data,run_index);
                     update_logfile('Searchlight matrix set to zero mean & unit variance: run wise',output_log)
                 case 'off'
                     update_logfile('WARNING: skipping cocktail blank removal',output_log)
@@ -126,7 +126,7 @@ for roi_idx = 1:numel(options.roi_list)
             end
             
             %   6. make hypothesis matrix
-
+            
             %build RSA model from behavioral data (always disimilarity matrix!!!)
             behavior_model = abs(repmat(CVbeh_data,1,numel(CVbeh_data)) - repmat(CVbeh_data',numel(CVbeh_data),1));
             %reduce to upper triangular vector
@@ -148,13 +148,13 @@ for roi_idx = 1:numel(options.roi_list)
                 end
                 
                 RDM = RSA_constructRDM(brain_data,options);
-                RDM = RDM(mat2vec_mask); %take upper triangular vector 
+                RDM = RDM(mat2vec_mask); %take upper triangular vector
                 %   8. test RDM
-                model_fit = []; %initalize so it doesn't complain 
+                model_fit = []; %initalize so it doesn't complain
                 switch options.RDM_dist_metric
                     case 'spearman'
-                     model_fit = corr(RDM,behavior_model,'type','Spearman');
-                     model_fit = atanh(model_fit); %fisher Z transform 
+                        model_fit = corr(RDM,behavior_model,'type','Spearman');
+                        model_fit = atanh(model_fit); %fisher Z transform
                 end
                 
                 %   9. store RDM fits to behavioral RDM

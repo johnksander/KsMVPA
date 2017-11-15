@@ -16,6 +16,9 @@ switch options.CVscheme
         subs2LO = combvec(subs2LO{1},subs2LO{2});
     case 'OneOut'
         subs2LO = options.subjects(valid_subs); %cross validation indicies
+    case 'genderCVs' %reviewer requested followup analysis
+        subs2LO = load(fullfile(strrep(options.save_dir,'_perm',''),'genderCVs'));
+        subs2LO = subs2LO.combos;
 end
 null_accuracies = NaN(options.num_perms,numel(options.roi_list),numel(options.behavioral_file_list));
 output_log = fullfile(options.save_dir,'output_log.txt');
@@ -54,6 +57,8 @@ for idx = 1:numel(options.subjects)
                                 beh_matrix = 2; %EA
                             end
                     end
+                case 'gender' %reviewer requested followup analysis
+                    beh_matrix(~isnan(beh_matrix)) = options.demos_gender(idx);
             end
             beh_matrix = clean_endrun_trials(beh_matrix,trials2cut,idx); %remove behavioral trials without proper fmri data
             subject_behavioral_data{idx,beh_idx} = beh_matrix; %subject_behavioral data NOT to be altered after this point

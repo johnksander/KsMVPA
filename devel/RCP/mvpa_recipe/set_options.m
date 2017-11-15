@@ -4,6 +4,7 @@ function options = set_options(config_options)
 %Directories
 %options.preproc_data_dir = preproc_data_dir;
 %options.preproc_data_dir is dependant on dataset & analysis options, set below
+%options.home_dir = '/ncf/mri/01/users/ksander/RCP/KsMVPA_h/';
 %options.home_dir = '/data/netapp/jksander/RCPholly/KsMVPA_h';
 options.home_dir = '/home/acclab/Desktop/ksander/holly_mvpa/KsMVPA_h/';
 options.script_dir = fullfile(options.home_dir,'mvpa_recipe');
@@ -21,6 +22,7 @@ addpath(options.helper_function_dir);
 addpath(options.classifier_function_dir);
 addpath(options.searchlight_function_dir);
 addpath(options.stat_function_dir);
+%addpath('/ncf/mri/01/users/ksander/RCP/spm12');
 %addpath('/data/netapp/jksander/spm12');
 select_linus_spm('spm12');
 
@@ -140,6 +142,13 @@ options.TR_avg_window = config_options.TR_avg_window; %running average, time win
 options.remove_endrun_trials = config_options.remove_endrun_trials; %remove trials with onsets occuring at N TRs from the end of a run
 options.trial_temporal_compression = config_options.trial_temporal_compression;
 options.normalization = config_options.normalization;
+if isfield(config_options,'treat_special_stimuli')
+    %this was added for handling the face/scene stimuli differently for
+    %temporal compression. Might be a catchall hacky add on option... 
+    options.treat_special_stimuli = config_options.treat_special_stimuli;
+else
+    options.treat_special_stimuli = 'off';
+end
 %feature selection
 options.feature_selection = config_options.feature_selection;
 options.lambda = 0.1; %whitening regularizatv

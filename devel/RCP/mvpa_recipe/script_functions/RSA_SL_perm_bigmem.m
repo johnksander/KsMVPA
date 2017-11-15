@@ -1,6 +1,10 @@
 function [voxel_null,roi_seed_inds] = RSA_SL_perm_bigmem(options)
 
 
+%currently this script is very inefficient for whole brain searchlight.
+%With > 500GB RAM, perhaps a big memory implementation would work....
+
+
 %GOALS:::
 %   0. Initialize variables
 %   1. load behavioral data
@@ -10,8 +14,8 @@ function [voxel_null,roi_seed_inds] = RSA_SL_perm_bigmem(options)
 %   5. create sliceable searchlight data matrix & treat fmri data (subjectwise)
 %   6. make hypothesis matrix
 %   7. set permutation order for searchlight course
-%   8. slice searchlights & assemble RDM
-%   9. test RDM
+%   8. slice permutations & assemble RDM
+%   9. test searchlights against permuted RDM
 %   10. store permuted RDM fits to behavioral RDM
 
 
@@ -66,6 +70,13 @@ for idx = 1:numel(options.subjects)
                     encoding_trials = ismember(beh_matrix(:,3),options.enc_runs) & ~isnan(beh_matrix(:,4));
                     trialtype_matrix = NaN(size(beh_matrix(:,4)));
                     trialtype_matrix(encoding_trials) = beh_matrix(encoding_trials,4); %only take valence ratings during encoding
+                case 'retreival_valence'
+                    retrieval_trials = ismember(beh_matrix(:,3),options.ret_runs) & ~isnan(beh_matrix(:,4));
+                    retrieval_lures = ismember(beh_matrix(:,3),options.ret_runs) & beh_matrix(:,4) == 0;
+                    trialtype_matrix = NaN(size(beh_matrix(:,4)));
+                    trialtype_matrix(retrieval_trials) = beh_matrix(retrieval_trials,4); %only take valence ratings during encoding
+                    %think about whether you want to include lures in valence RDM at all (or coded back in as neutral trials)
+                    trialtype_matrix(retrieval_lures) = NaN; %they don't have a memory component, pretty different I'm excluding
             end
             trialtype_matrix = clean_endrun_trials(trialtype_matrix,trials2cut,idx); %remove behavioral trials without proper fmri data
             subject_behavioral_data{idx,beh_idx} = trialtype_matrix; %subject_behavioral data NOT to be altered after this point
@@ -121,9 +132,9 @@ for roi_idx = 1:numel(options.roi_list)
     commonvox_maskdata = fullfile(options.preproc_data_dir,['commonvox_' options.roi_list{roi_idx}]);
     commonvox_maskdata =  spm_read_vols(spm_vol(commonvox_maskdata));
     [searchlight_inds,seed_inds] = preallocate_searchlights(commonvox_maskdata,options.searchlight_radius); %grow searchlight sphere @ every included voxel
-%     searchlight_inds = load('SLinds_1p5thr10.mat'); %just for debugging
-%     seed_inds = searchlight_inds.seed_inds;
-%     searchlight_inds = searchlight_inds.searchlight_inds;
+    %     searchlight_inds = load('SLinds_1p5thr10.mat'); %just for debugging
+    %     seed_inds = searchlight_inds.seed_inds;
+    %     searchlight_inds = searchlight_inds.searchlight_inds;
     update_logfile('Searchlight indexing complete',output_log)
     update_logfile(['--Total valid searchlights: ' num2str(numel(seed_inds))],output_log)
     %4. loop through subjects
@@ -177,7 +188,6 @@ for roi_idx = 1:numel(options.roi_list)
             behavior_model = abs(repmat(CVbeh_data,1,numel(CVbeh_data)) - repmat(CVbeh_data',numel(CVbeh_data),1));
             %reduce to upper triangular vector
             mat2vec_mask = logical(triu(ones(size(behavior_model)),1));
-            behavior_model = behavior_model(mat2vec_mask);
             
             %   7. set permutation order for searchlight course
             
@@ -188,37 +198,45 @@ for roi_idx = 1:numel(options.roi_list)
             
             searchlight_results = NaN(numel(seed_inds),options.num_perms);%easier results-to-roi file mapping
             
-            %   8. slice searchlights & assemble RDM
-            parfor searchlight_idx = 1:numel(seed_inds)
+            %   8. slice permutations & assemble RDM
+            parfor permidx = 1:options.num_perms
+                perm_results = NaN(numel(seed_inds),1); %fit to permuted RDM for each searchlight
+                perm_behavior_model = RSA_permuteRDM(behavior_model,perm_matrix(:,permidx)); %permute the behavioral model
+                perm_behavior_model = perm_behavior_model(mat2vec_mask); %take upper triangular vector
                 
-                current_searchlight = searchlight_brain_data(:,:,searchlight_idx);
-                RDM = RSA_constructRDM(current_searchlight,options);
-                
-                perm_results = NaN(1,options.num_perms);
-                for permidx = 1:options.num_perms
-                    permRDM = RSA_permuteRDM(RDM,perm_matrix(:,permidx));
-                    permRDM = permRDM(mat2vec_mask); %take upper triangular vector
-                    %   9. test RDM
+                %   9. test searchlights against permuted RDM
+                for searchlight_idx = 1:numel(seed_inds)
+                    current_searchlight = searchlight_brain_data(:,:,searchlight_idx);
+                    brainRDM = RSA_constructRDM(current_searchlight,options);
+                    brainRDM = brainRDM(mat2vec_mask);
                     switch options.RDM_dist_metric
                         case 'spearman'
-                            perm_results(permidx) = atanh(corr(permRDM,behavior_model,'type','Spearman'));
+                            perm_results(searchlight_idx) = atanh(corr(brainRDM,perm_behavior_model,'type','Spearman'));
+                            %fisher Z transformed
+                        case 'kendall'
+                            perm_results(searchlight_idx) = atanh(corr(brainRDM,perm_behavior_model,'type','Kendall'));
                             %fisher Z transformed
                     end
-                end
-                %  10. store permuted RDM fits to behavioral RDM
-                searchlight_results(searchlight_idx,:) = perm_results;
+                    
+                end%searchlight loop
                 
-                switch options.parforlog %parfor progress tracking
-                    case 'on'
+                %  10. store permuted RDM fits to behavioral RDM
+                searchlight_results(:,permidx) = perm_results;
+                
+                switch options.parforlog
+                    case 'on' %parfor progress tracking
                         txtappend(special_progress_tracker,'1\n')
-                        progress = load(special_progress_tracker);
-                        if mod(sum(progress),numel(seed_inds) * .005) == 0 %.5 percent
-                            progress = (sum(progress) /  numel(seed_inds)) * 100;
-                            message = sprintf('Searchlight RSA permutations %.1f percent complete',progress);
+                        SPT_fid = fopen(special_progress_tracker,'r');
+                        progress = fscanf(SPT_fid,'%i');
+                        fclose(SPT_fid);
+                        if mod(sum(progress),floor(options.num_perms * .05)) == 0 %5 percent
+                            progress = (sum(progress) /  options.num_perms) * 100;
+                            message = sprintf('Permutation test %.1f percent complete',progress);
                             update_logfile(message,output_log)
                         end
                 end
-            end%searchlight loop
+                
+            end %permutation order parfor loop
             voxel_null{subject_idx,roi_idx} = searchlight_results;
         end
     end

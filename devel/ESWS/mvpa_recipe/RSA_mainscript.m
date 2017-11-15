@@ -32,8 +32,8 @@ options.exclusions = [115 202 208];
 options.RDM_dist_metric = 'spearman'; %euclid spearman
 
 
-preproc_data_file_pointers = load(fullfile(options.preproc_data_dir,'preproc_data_file_pointers'));
-preproc_data_file_pointers = preproc_data_file_pointers.preproc_data_file_pointers;
+%load correct ROI filepointers
+preproc_data_file_pointers = PreprocDataFP_handler(options,[],'load'); 
 
 %classifer_file = fullfile(options.classifier_function_dir,[func2str(options.classifier_type) '.m']);
 %parpool(num_workers,'AttachedFiles',{classifer_file})

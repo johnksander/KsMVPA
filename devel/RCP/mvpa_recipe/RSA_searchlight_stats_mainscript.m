@@ -2,9 +2,9 @@ clear
 clc
 format compact
 
-
-resname = 'RSA_SL_1p5_ASGM_encodingValence';
+resname = 'RSA_SL_2p5_ASGM_encodingValence';
 permname = [resname '_stats'];
+
 
 %----name---------------------------------------------------
 config_options.name = permname;
@@ -20,7 +20,7 @@ config_options.feature_selection = 'off';
 %----fMRI-data-specification--------------------------------
 config_options.rawdata_type = 'LSS_eHDR'; % 'unsmoothed_raw' | dartel_raw | 'LSS_eHDR' | SPMbm | 'anatom' 
 config_options.LSSid = 'ASGM'; %LSS model ID (or SPMbm ID)
-config_options.searchlight_radius = 1.5;
+config_options.searchlight_radius = 2.5;
 config_options.roi_list = {'gray_matter.nii'};   
 config_options.rois4fig = {'gray_matter'};  
 %----TR-settings--------------------------------------------
@@ -36,7 +36,7 @@ config_options.performance_stat = 'none'; %accuracy | Fscore
 %----------------------------------------------------------- 
 options = set_options(config_options);
 options.parforlog = 'off';
-options.RDM_dist_metric = 'spearman';
+options.RDM_dist_metric = 'spearman'; %'spearman' | 'kendall'
 options.num_perms = 100;
 
 
@@ -48,7 +48,9 @@ searchlight_results = searchlight_results.searchlight_cells;
 searchlight_stats = map_searchlight_significance(searchlight_results,voxel_null,options);
 
 
-
+%---cleanup-------------------
+driverfile = mfilename;
+backup_jobcode(driverfile,options)
 
 
 

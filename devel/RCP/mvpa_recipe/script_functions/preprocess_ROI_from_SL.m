@@ -16,11 +16,13 @@ mkdir(options.preproc_data_dir)
 
 ROI_data = cell((numel(options.subjects)-numel(options.exclusions)),numel(options.roi_list)); %preallocate cell array for all subjs roi data
 
+fprintf('loading mask files\n')
 %Load in Masks
 mask_data = cell(numel(options.roi_list),1);
-for maskidx = 1:numel(options.roi_list),
+for maskidx = 1:numel(options.roi_list)
     my_files = {fullfile(options.mask_dir,options.roi_list{maskidx})};
     mask_data{maskidx} = logical(load_fmridata(my_files,options));
+    fprintf('----file: %s complete\n',options.roi_list{maskidx})
 end
 mask_data = cat(4,mask_data{:});
 

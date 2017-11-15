@@ -20,8 +20,10 @@ config_options.feature_selection = 'off';
 config_options.rawdata_type = 'LSS_eHDR'; % 'unsmoothed_raw' | dartel_raw | 'LSS_eHDR' | SPMbm | 'anatom' 
 config_options.LSSid = 'ASGM10'; %LSS model ID (or SPMbm ID)
 config_options.searchlight_radius = 0;
-config_options.roi_list = {'signficiant_searchlights.nii'};   
-config_options.rois4fig = {'significant_searchlights'};  
+%config_options.roi_list = {'Rmotor_cortex_sphere.nii'};   
+%config_options.rois4fig = {'Rmotor_cortex_sphere'};  
+config_options.roi_list = {'Rinsula_sphere.nii'};   
+config_options.rois4fig = {'Rinsula_sphere'};  
 %----TR-settings--------------------------------------------
 config_options.TR_delay = 0;
 config_options.TR_avg_window = 0;
