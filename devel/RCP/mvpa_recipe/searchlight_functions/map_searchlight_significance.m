@@ -30,7 +30,7 @@ group_accuracy_maps = bootstrap_group_maps(voxel_null,group_map_keys);
 update_logfile('---complete',output_log)
 %find p = .001 threshold map from permutation dist
 update_logfile('Calculating voxelwise thresholds...',output_log)
-seed_thresholds = voxel_sig_threshold(group_accuracy_maps);
+seed_thresholds = voxel_sig_threshold(group_accuracy_maps,options);
 update_logfile('---complete',output_log)
 %find null distribution of cluster sizes for significant voxels
 update_logfile('Calculating null cluster size distribution...',output_log)
@@ -39,7 +39,27 @@ update_logfile('---complete',output_log)
 %find clusters in real results
 update_logfile('Calculating experiment results...',output_log)
 sig_vox = searchlight_results >= seed_thresholds;
-[real_cluster_sizes,seed_cluster_info] = cluster_search(seed_inds(sig_vox),options.scan_vol_size);
+[real_cluster_sizes,seed_cluster_info,Cl_inds] = cluster_search(seed_inds(sig_vox),options);
+switch options.cluster_effect_stat
+    case 't-stat'
+        %find cumulative cluster t-statistic for result clusters
+        Vmu = mean(group_accuracy_maps,2); %chance
+        Vsd = std(group_accuracy_maps,[],2); %Stnd. error
+        %get voxel logicals for each cluster
+        Cl_inds = cellfun(@(x) ismember(seed_inds,x),Cl_inds,'uniformoutput',false);
+        %calculate cumulative cluster t-stat (& replace "real cluster sizes")
+        real_cluster_sizes = ...
+            cellfun(@(x) sum((searchlight_results(x) - Vmu(x)) ./ Vsd(x)),Cl_inds);
+        %now replace "seed_cluster_info"'s extent with t-stats
+        for rep_idx = 1:numel(real_cluster_sizes)
+            %really annoying vector index scheme mismatch...
+            curr_cl = ismember(seed_inds(sig_vox),seed_inds(Cl_inds{rep_idx}));
+            seed_cluster_info(curr_cl) = real_cluster_sizes(rep_idx);
+        end
+end
+
+
+
 seed_cluster_info = [seed_inds(sig_vox) seed_cluster_info]; %reattach seed inds to their cluster sizes
 update_logfile('---complete',output_log)
 %find p values for real clusters

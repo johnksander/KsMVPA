@@ -2,11 +2,24 @@ function options = set_options(config_options)
 
 
 %Directories
-%options.preproc_data_dir = preproc_data_dir;
-%options.preproc_data_dir is dependant on dataset & analysis options, set below
-%options.home_dir = '/ncf/mri/01/users/ksander/RCP/KsMVPA_h/';
-%options.home_dir = '/data/netapp/jksander/RCPholly/KsMVPA_h';
-options.home_dir = '/home/acclab/Desktop/ksander/holly_mvpa/KsMVPA_h/';
+location = 'linus';
+
+switch location
+    case 'harvard'
+        options.home_dir = '/ncf/mri/01/users/ksander/RCP/KsMVPA_h/';
+        addpath('/ncf/mri/01/users/ksander/RCP/spm12');
+    case 'bender'
+        options.home_dir  = '/Users/ksander/Desktop/work/RCP';
+    case 'hpc'
+        options.home_dir = '/data/netapp/jksander/RCPholly/KsMVPA_h';
+        addpath('/data/netapp/jksander/spm12');
+    case 'woodstock'
+        options.home_dir = '/home/acclab/Desktop/ksander/holly_mvpa/KsMVPA_h';
+        addpath('/home/acclab/Desktop/ksander/spm12')
+    case 'linus'
+        options.home_dir = '/home/acclab/Desktop/ksander/holly_mvpa/KsMVPA_h';
+        select_linus_spm('spm12');
+end
 options.script_dir = fullfile(options.home_dir,'mvpa_recipe');
 options.script_function_dir = fullfile(options.script_dir,'script_functions');
 options.helper_function_dir = fullfile(options.script_dir,'helper_functions');
@@ -22,9 +35,6 @@ addpath(options.helper_function_dir);
 addpath(options.classifier_function_dir);
 addpath(options.searchlight_function_dir);
 addpath(options.stat_function_dir);
-%addpath('/ncf/mri/01/users/ksander/RCP/spm12');
-%addpath('/data/netapp/jksander/spm12');
-select_linus_spm('spm12');
 
 % Options template
 fprintf('Creating options structure\r')
@@ -137,11 +147,15 @@ options.roi_list = config_options.roi_list;  %options.roi_list = {'whole_brain_m
 options.rois4fig = config_options.rois4fig;  %options.rois4fig = {'whole_brain' };
 options.searchlight_radius = config_options.searchlight_radius; %1.5 should be 19 voxels, 4 should be like 257
 %fmri data treatment
-options.TR_delay = config_options.TR_delay;
-options.TR_avg_window = config_options.TR_avg_window; %running average, time window N events wide
-options.remove_endrun_trials = config_options.remove_endrun_trials; %remove trials with onsets occuring at N TRs from the end of a run
 options.trial_temporal_compression = config_options.trial_temporal_compression;
 options.normalization = config_options.normalization;
+%setting these to zero 
+%options.TR_delay = config_options.TR_delay;
+%options.TR_avg_window = config_options.TR_avg_window; %running average, time window N events wide
+%options.remove_endrun_trials = config_options.remove_endrun_trials; %remove trials with onsets occuring at N TRs from the end of a run
+options.TR_delay = 0; 
+options.TR_avg_window = 0; %running average, time window N events wide
+options.remove_endrun_trials = 0; %remove trials with onsets occuring at N TRs from the end of a run
 if isfield(config_options,'treat_special_stimuli')
     %this was added for handling the face/scene stimuli differently for
     %temporal compression. Might be a catchall hacky add on option... 
@@ -159,9 +173,26 @@ options.parkmeans = 'off';%off open parpool for 'UseParallel' kmeans argument
 %classifier/CV
 options.classifier_type = config_options.classifier; %@knn, @svm, @logistic, @minpool,@RelVec
 options.CVscheme = config_options.CVscheme;
-options.performance_stat = config_options.performance_stat; 
 options.knn_neighbors = 1; %default number of neighbors is 1 (watch for spelling neighbors)
 options.cv_summary_statistic = @mean; %function to summarize classification accuracies across crossval folds
+if isfield(config_options,'performance_stat')
+    options.performance_stat = config_options.performance_stat;
+else
+    options.performance_stat = 'accuracy'; %default
+end
+%statistical inference
+options.cluster_conn = config_options.cluster_conn; %cluster connectivity scheme (6, 18, or 26)
+if isfield(config_options,'cluster_effect_stat')
+    options.cluster_effect_stat = config_options.cluster_effect_stat;
+else
+    options.cluster_effect_stat = 'extent'; %default (t-stat is alt)
+end
+if isfield(config_options,'vox_alpha')
+    options.vox_alpha = config_options.vox_alpha;
+else
+    options.vox_alpha = .001; %default 
+end
+
 
 if isequal(options.classifier_type,@RelVec)
     addpath(fullfile(options.classifier_function_dir,'RelVec'))
