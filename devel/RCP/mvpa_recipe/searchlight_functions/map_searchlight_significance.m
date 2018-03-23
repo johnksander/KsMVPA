@@ -20,6 +20,7 @@ searchlight_results = squeeze(searchlight_results(:,2,:));
 searchlight_results = mean(searchlight_results,2); %average searchlight accuracy map from results 
 output_log = fullfile(options.save_dir,'stats_output_log.txt');
 
+
 %preallocate matrix for drawing accuracy maps from each subject
 %in 10e5 group accuracy maps. This can be used to regenerate
 %distributions since these arrays are too big for local RAM (100GB).
@@ -66,20 +67,27 @@ update_logfile('---complete',output_log)
 
 cluster_pvals = nan(size(real_cluster_sizes));
 for idx = 1:numel(cluster_pvals)
-    cluster_pvals(idx) = (sum(cluster_null > real_cluster_sizes(idx)) + 1) / (numel(cluster_null) + 1);   %no zero pvals
+    cluster_pvals(idx) = (sum(cluster_null >= real_cluster_sizes(idx)) + 1) / (numel(cluster_null) + 1);   %no zero pvals
 end
 
 [sorted_cluster_pvals,sig_rank] = sort(cluster_pvals);
 
 
-%FDR threshold
-n = numel(real_cluster_sizes);
-q = 0.05; %alpha (FDR)
-c = 1; %independance-ish
-%c = sum([1:n].^-1); %no independance
-FDR_pvals = (1:n)'/n*q/c; %compare this to sorted pvalues
-
-significant_clusters = sorted_cluster_pvals <= FDR_pvals;
+if sum(~isnan(seed_cluster_info(:,2))) == 0
+    %skip FDR testing, no clusters found
+    significant_clusters = 0;
+    update_logfile('Zero supra-threshold clusters observed in results!',output_log)
+else
+    
+    %FDR threshold
+    n = numel(real_cluster_sizes);
+    q = 0.05; %alpha (FDR)
+    c = 1; %independance-ish
+    %c = sum([1:n].^-1); %no independance
+    FDR_pvals = (1:n)'/n*q/c; %compare this to sorted pvalues
+    
+    significant_clusters = sorted_cluster_pvals <= FDR_pvals;
+end
 
 if sum(significant_clusters) > 0
     update_logfile(sprintf('Significant clusters found = %i',sum(significant_clusters)),output_log)

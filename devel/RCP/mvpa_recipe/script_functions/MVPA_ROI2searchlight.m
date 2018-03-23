@@ -254,7 +254,8 @@ for roi_idx = 1:numel(options.roi_list)
                     case 'oldMC'
                         testing_labels = oldMC_label_matrix(testing_labels);
                         testing_labels = repmat(testing_labels,1,1,num_encROIs);
-                        Nguess = size(testing_labels,1) * size(testing_labels,2);
+                        Nguess = sum(~isnan(testing_labels(:,:,1)));
+                        Nguess = sum(Nguess); %number of guesses per ROI (same for every ROI..)
                 end
                 %pay attention! above I just expanded testing labels for
                 %testing equality with prediction matrix. Keep in mind.
@@ -276,7 +277,7 @@ for roi_idx = 1:numel(options.roi_list)
                             predictions = NaN(size(testing_labels)); %expanded to (labels x class x roi)
                             for enc_idx = 1:num_encROIs
                                 predictions(:,:,enc_idx) = ...
-                                    test_oldMC_LDA(ROI_models{enc_idx},testing_data);
+                                    test_oldMC_LDA(ROI_models{enc_idx},testing_data,testing_labels(:,:,enc_idx));
                             end
                             %   9. store CV accuracy
                             searchlight_correct(searchlight_idx,:) = sum(sum(predictions == testing_labels),2);

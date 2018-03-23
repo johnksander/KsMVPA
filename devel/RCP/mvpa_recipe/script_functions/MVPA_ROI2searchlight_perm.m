@@ -270,7 +270,8 @@ for roi_idx = 1:numel(options.roi_list)
                     case 'oldMC'
                         testing_labels = oldMC_label_matrix(testing_labels);
                         testing_labels = repmat(testing_labels,1,1,1,num_encROIs); %getting crazy
-                        Nguess = size(testing_labels,1) * size(testing_labels,2);
+                        Nguess = sum(~isnan(testing_labels(:,:,1,1)));
+                        Nguess = sum(Nguess); %number of guesses per ROI (same for every ROI/perm labeling..)
                 end
                 %pay attention! above I just expanded testing labels for
                 %testing equality with prediction matrix. Keep in mind.
@@ -295,7 +296,8 @@ for roi_idx = 1:numel(options.roi_list)
                             for enc_idx = 1:num_encROIs
                                 for permidx = 1:options.num_perms
                                     predictions(:,:,permidx,enc_idx) = ...
-                                        test_oldMC_LDA(ROI_models{enc_idx,permidx},testing_data);
+                                        test_oldMC_LDA(ROI_models{enc_idx,permidx},testing_data,...
+                                        testing_labels(:,:,permidx,enc_idx));
                                 end
                             end
                             %   11. store CV accuracy

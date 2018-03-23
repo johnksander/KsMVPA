@@ -2,7 +2,7 @@ clear
 clc
 format compact
 
-resname = 'MVPA_ROI2searchlight_1p5_ASGM_enc2ret';
+resname = 'MVPA_ROI2searchlight_BMC_1p5_ASGM_enc2ret';
 enc_job = 'RSA_SL_1p5_ASGM_encodingValence'; %encoding results to pull
 permname = [resname '_stats'];
 
@@ -19,8 +19,8 @@ config_options.normalization = 'runwise';
 config_options.trial_temporal_compression = 'off'; 
 config_options.feature_selection = 'off';
 %----evaluation---------------------------------------------
-config_options.cluster_conn = 26;
-config_options.cluster_effect_stat = 't-stat';
+config_options.cluster_conn = 6;
+config_options.cluster_effect_stat = 'extent';
 config_options.vox_alpha = .001;
 %----fMRI-data-specification--------------------------------
 config_options.rawdata_type = 'LSS_eHDR'; % 'unsmoothed_raw' | dartel_raw | 'LSS_eHDR' | SPMbm | 'anatom' 

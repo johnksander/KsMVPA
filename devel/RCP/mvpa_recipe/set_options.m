@@ -2,7 +2,7 @@ function options = set_options(config_options)
 
 
 %Directories
-location = 'linus';
+location = 'woodstock';
 
 switch location
     case 'harvard'

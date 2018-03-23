@@ -13,10 +13,10 @@ function [vol_cluster_sizes,seed_cluster_sizes,vol_clusters] = cluster_search(se
 scan_vol = zeros(options.scan_vol_size); %create scan matrix
 scan_vol(seed_inds) = 1; %binarize with significant seeds
 vol_clusters = bwconncomp(scan_vol,options.cluster_conn); %find clusters, face connectivity scheme
-vol_clusters = vol_clusters.PixelIdxList; 
+vol_clusters = vol_clusters.PixelIdxList'; 
 loners = cellfun(@(x) numel(x) == 1,vol_clusters); %remove non cluster seeds
 vol_clusters = vol_clusters(~loners);
-vol_cluster_sizes = cellfun(@numel,vol_clusters)'; %size of all unique clusters 
+vol_cluster_sizes = cellfun(@numel,vol_clusters); %size of all unique clusters 
 seed_cluster_sizes = NaN(size(seed_inds));
 for idx = 1:numel(vol_clusters) %find seed inds' cluster size 
     seed_cluster_sizes(ismember(seed_inds,vol_clusters{idx})) = numel(vol_clusters{idx});

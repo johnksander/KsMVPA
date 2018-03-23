@@ -31,7 +31,7 @@ for idx = 1:num_straps
                 vox = cellfun(@(x) ismember(seed_inds,x),vol_clusters,'uniformoutput',false);
                 %calculate cumulative cluster t-stat 
                 cluster_t = cellfun(@(x) sum((whole_brain(x) - Vmu(x)) ./ Vsd(x)),vox);
-                cluster_null{idx} = cluster_t';
+                cluster_null{idx} = cluster_t;
             end
     end
 end
