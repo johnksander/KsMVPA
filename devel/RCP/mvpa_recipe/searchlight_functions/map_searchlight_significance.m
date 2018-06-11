@@ -100,7 +100,7 @@ else
     update_logfile('No significant clusters',output_log)
 end
 searchlight_stats = [];
-save(fullfile(options.save_dir,'stat_outcomes'),'cluster_null','sig_vox','real_cluster_sizes')
+save(fullfile(options.save_dir,'stat_outcomes'),'cluster_null','sig_vox','real_cluster_sizes','options')
 
 
 

@@ -20,7 +20,8 @@ for idx = 1:n_pairs
     target_labels = training_labels(target_obs); %labels 
     target_data = training_data(target_obs,:); %data 
     %train old MC model, LDA struct keeps the label names 
-    models{idx} = fitcdiscr(target_data,target_labels,'Prior','uniform');
+    models{idx} = fitcdiscr(target_data,target_labels,...
+        'DiscrimType',options.classifier_type,'Prior','uniform');
 end
 
 

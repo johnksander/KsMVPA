@@ -2,8 +2,14 @@ clear
 clc
 format compact
 
-job_name = 'RSA_SL_2p5_VMGM_encodingValence';
-SLradius = 2.5; %only relevant for seeds
+%05/09/2018: note- just added "conn_subdir" stuff to test different
+%connectivity schemes. This just looks in a result subdirectory. I also
+%moved the "cluster_conn=" specification up to the top, since that's relevant!
+
+job_name = 'RSA_SL_1p5_ASGM_encodingValence';
+conn_subdir = 'conn_scheme_26/cluster_t-stat'; %testing different connectivity scheme, pull from subdir 
+cluster_conn = 26; %this needs to match the cluster_search() that produced results
+SLradius = 1.5; %only relevant for seeds
 makeROI = 'seeds'; % seeds | volumes
 
 basedir = '/home/acclab/Desktop/ksander/holly_mvpa/KsMVPA_h/';
@@ -17,6 +23,7 @@ addpath(SLdir)
 
 %now fix up the res dir & pull results
 result_dir = fullfile(result_dir,[job_name '_stats']);
+result_dir = fullfile(result_dir,conn_subdir); %testing different connectivity scheme, pull from subdir 
 save_dir = fullfile(result_dir,'enc2ret_data');
 if ~isdir(save_dir),mkdir(save_dir);end
 
@@ -33,7 +40,7 @@ sig_clusters = sig_clusters.img;
 volsz = size(sig_clusters);
 
 %cluster connectivity scheme (6, 18, or 26)
-cluster_conn = 6; %this needs to match the cluster_search() that produced results
+%cluster_conn = 6; %this needs to match the cluster_search() that produced results
 vol_clusters = bwconncomp(sig_clusters,cluster_conn); %find clusters
 vol_clusters = vol_clusters.PixelIdxList; %cluster inds
 

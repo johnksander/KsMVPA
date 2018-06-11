@@ -22,7 +22,7 @@ function MVPA_ROI2searchlight_perm(options)
 
 
 %0. Initialize variables
-rng('shuffle') %just for fun
+%rng('shuffle') %just for fun (in set_options now)
 output_dir = fullfile(options.save_dir,'files'); %make new sub-directory for output files
 if ~isdir(output_dir),mkdir(output_dir);end
 vol_size = options.scan_vol_size; %just make var name easier
@@ -243,7 +243,8 @@ for roi_idx = 1:numel(options.roi_list)
                         switch options.performance_stat
                             case 'accuracy' %nothing fancy or dumb
                                 ROI_models{enc_idx,permidx} = fitcdiscr(training_data,...
-                                    training_labels(:,permidx),'Prior','uniform');
+                                    training_labels(:,permidx),...
+                                    'DiscrimType',options.classifier_type,'Prior','uniform');
                             case 'oldMC' %binary comparison models
                                 ROI_models{enc_idx,permidx} = ...
                                     train_oldMC_LDA(training_data,training_labels(:,permidx));

@@ -75,7 +75,6 @@ for idx = 1:numel(options.subjects)
                     trialtype_matrix(retrieval_trials) = beh_matrix(retrieval_trials,4); %only take valence ratings during encoding
                     %think about whether you want to include lures in valence RDM at all (or coded back in as neutral trials)
                     trialtype_matrix(retrieval_lures) = NaN; %they don't have a memory component, pretty different I'm excluding
-                    
             end
             
             switch options.treat_special_stimuli %special treatment...

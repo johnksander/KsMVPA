@@ -2,8 +2,8 @@ clear
 clc
 format compact
 
-resname = 'MVPA_ROI2searchlight_BMC_1p5_ASGM_enc2ret';
-enc_job = 'RSA_SL_1p5_ASGM_encodingValence'; %encoding results to pull
+resname = 'MVPA_ROI2searchlight_2p5_ASGM_conn26tstat_enc2ret';
+enc_job = 'RSA_SL_2p5_ASGM_encval_conn26tstat'; %encoding results to pull
 permname = [resname '_stats'];
 
 
@@ -19,25 +19,24 @@ config_options.normalization = 'runwise';
 config_options.trial_temporal_compression = 'off'; 
 config_options.feature_selection = 'off';
 %----evaluation---------------------------------------------
-config_options.cluster_conn = 6;
-config_options.cluster_effect_stat = 'extent';
-config_options.vox_alpha = .001;
+config_options.cluster_conn = 26;
+config_options.cluster_effect_stat = 't-stat';
 %----fMRI-data-specification--------------------------------
 config_options.rawdata_type = 'LSS_eHDR'; % 'unsmoothed_raw' | dartel_raw | 'LSS_eHDR' | SPMbm | 'anatom' 
 config_options.LSSid = 'ASGM'; %LSS model ID (or SPMbm ID)
-config_options.searchlight_radius = 1.5;
+config_options.searchlight_radius = 2.5;
 config_options.roi_list = {'gray_matter.nii'};   
 config_options.rois4fig = {'gray_matter'};  
 %-----behavioral-data-settings------------------------------
 config_options.behavioral_transformation = 'enc2ret_valence';
 config_options.behavioral_measure = 'allstim';
 %----classifier---------------------------------------------
-config_options.classifier = @GNB; %only matters for adding GNB func paths
-config_options.performance_stat = 'oldMC'; %do old-style multiclass
+config_options.classifier = 'linear'; 
+config_options.performance_stat = 'accuracy'; 
 %----------------------------------------------------------- 
 options = set_options(config_options);
 options.parforlog = 'off';
-options.PCAcomponents2keep = 15;
+options.PCAcomponents2keep = 60;
 options.num_perms = 100;
 options.enc_job = enc_job; %put the enc job in options 
 main_save_dir = options.save_dir; %we're going to save results in subdirs 
@@ -51,7 +50,7 @@ searchlight_results = searchlight_results.searchlight_cells;
 num_encROIs = find(~ismember(options.subjects,options.exclusions),1,'first'); %grab a valid subject index
 num_encROIs = size(searchlight_results{num_encROIs},2) - 1;
 update_logfile(sprintf('----Encoding ROIs found: %i',num_encROIs),output_log)
-
+keyboard
 
 for idx = 1:num_encROIs
     
@@ -74,7 +73,8 @@ for idx = 1:num_encROIs
     end
     
     %make ROI specfic savedir 
-    options.save_dir = fullfile(main_save_dir,sprintf('ROI_%i_results',idx));
+    options.save_dir = fullfile(main_save_dir,...
+        sprintf('conn_scheme_%i',options.cluster_conn),sprintf('ROI_%i_results',idx));
     if strcmp(options.cluster_effect_stat,'t-stat')
         options.save_dir = fullfile(options.save_dir,'cluster_t-stat');end
     if ~isdir(options.save_dir),mkdir(options.save_dir);end

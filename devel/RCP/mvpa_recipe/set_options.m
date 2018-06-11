@@ -1,5 +1,5 @@
 function options = set_options(config_options)
-
+rng('shuffle') %just for fun 
 
 %Directories
 location = 'woodstock';
@@ -124,6 +124,7 @@ switch options.dataset
         switch options.analysis
             case 'ROI'
                 preproc_data_dir = fullfile(options.mvpa_datadir,'preprocessed_scan_data',['ROI' ID4preproc_datadir]);
+                config_options.cluster_conn = NaN;
             case 'searchlight'
                 preproc_data_dir = fullfile(options.mvpa_datadir,'preprocessed_scan_data',['searchlight' ID4preproc_datadir]);
                 addpath(fullfile(options.script_dir,'Nifti_Toolbox'))

@@ -200,7 +200,7 @@ for roi_idx = 1:numel(options.roi_list)
             end
             %   7. set up cross validation
             cv_correct = cell(1,CV.kfolds);
-            cv_guesses = cell(1,CV.kfolds);
+            cv_guesses = cell(1,CV.kfolds);    
             
             for fold_idx = 1:CV.kfolds %CV folds
                 %store CV accuracy
@@ -228,7 +228,8 @@ for roi_idx = 1:numel(options.roi_list)
                     %train LDA model on features
                     switch options.performance_stat
                         case 'accuracy' %nothing fancy or dumb
-                            ROI_models{enc_idx} = fitcdiscr(training_data,training_labels,'Prior','uniform');
+                            ROI_models{enc_idx} = fitcdiscr(training_data,training_labels,...
+                                'DiscrimType',options.classifier_type,'Prior','uniform');
                         case 'oldMC' %the "old multiclass" scheme
                             ROI_models{enc_idx} = train_oldMC_LDA(training_data,training_labels);
                     end
@@ -260,7 +261,7 @@ for roi_idx = 1:numel(options.roi_list)
                 %pay attention! above I just expanded testing labels for
                 %testing equality with prediction matrix. Keep in mind.
                 parfor searchlight_idx = 1:numel(seed_inds)
-                    
+
                     %get the current searchlight as testing data
                     testing_data = testing_searchlights(:,:,searchlight_idx);
                     %classify with each ROI
