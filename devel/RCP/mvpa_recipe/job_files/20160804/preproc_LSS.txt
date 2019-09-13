@@ -1,0 +1,9 @@
+#$ -q all.q
+#$ -N LSS_preproc
+#$ -pe orte 1
+#$ -l mem_token=4G -l mem_free=4G
+
+cd /data/netapp/jksander/KsMVPA/mvpa_recipe/
+module load MATLAB/R2015a
+matlab -nodisplay -nodesktop -nosplash -singleCompThread -r preprocess_HDR_LSS
+

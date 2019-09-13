@@ -1,0 +1,12 @@
+#$ -q bigmem.q
+#$ -N RSA_fullrun
+
+#$ -pe orte 30
+#$ -l mem_token=16G
+#$ -l mem_free=16G
+#$ -ckpt reloc
+
+cd /data/netapp/jksander/RCPholly/KsMVPA_h/mvpa_recipe/
+module load MATLAB/R2015a
+matlab -nodisplay -nodesktop -nosplash -r run_KsMVPA_jobs
+

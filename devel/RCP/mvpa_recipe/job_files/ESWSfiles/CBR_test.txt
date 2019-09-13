@@ -1,0 +1,8 @@
+#$ -q bigmem.q
+#$ -N cocktail_blank_test
+#$ -pe orte 32
+
+cd /data/netapp/jksander/KsMVPA/mvpa_recipe/
+module load MATLAB/R2015a
+matlab -nodisplay -nodesktop -nosplash -r cocktail_blank_test
+

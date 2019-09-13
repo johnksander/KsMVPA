@@ -26,6 +26,7 @@ options.helper_function_dir = fullfile(options.script_dir,'helper_functions');
 options.classifier_function_dir = fullfile(options.script_dir,'classifier_functions');
 options.searchlight_function_dir = fullfile(options.script_dir,'searchlight_functions');
 options.stat_function_dir = fullfile(options.script_dir,'stat_functions');
+options.srm_function_dir = fullfile(options.script_dir,'srm_functions');
 options.mask_dir = fullfile(options.home_dir,'maskdir');
 options.save_dir = fullfile(options.home_dir,'Results',config_options.result_dir);
 options.baseDir4mpva_data = fullfile(options.home_dir,'Data');
@@ -35,6 +36,7 @@ addpath(options.helper_function_dir);
 addpath(options.classifier_function_dir);
 addpath(options.searchlight_function_dir);
 addpath(options.stat_function_dir);
+addpath(options.srm_function_dir)
 
 % Options template
 fprintf('Creating options structure\r')

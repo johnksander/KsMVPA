@@ -1,0 +1,8 @@
+#$ -q bigmem.q
+#$ -N MVPA_GNB_SL_perm
+#$ -pe orte 32
+
+cd /data/netapp/jksander/KsMVPA/mvpa_recipe/
+module load MATLAB/R2015a
+matlab -nodisplay -nodesktop -nosplash -r MVPA_GNB_searchlight_stats_mainscript_bigmem
+

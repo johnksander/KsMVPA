@@ -1,0 +1,9 @@
+#$ -q all.q
+#$ -N BNC
+#$ -pe orte 12
+#$ -l mem_token=1G -l mem_free=1G
+
+cd /data/netapp/jksander/KsMVPA/mvpa_recipe/
+module load MATLAB/R2015a
+matlab -nodisplay -nodesktop -nosplash -singleCompThread -r L2SO_parfor_mainscript_memory
+

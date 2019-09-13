@@ -1,0 +1,11 @@
+#$ -q all.q
+#$ -N allq_cocktail_blank_test
+#$ -pe orte 12
+#$ -l mem_token=5G
+#$ -l mem_free=5G
+
+
+cd /data/netapp/jksander/KsMVPA/mvpa_recipe/
+module load MATLAB/R2015a
+matlab -nodisplay -nodesktop -nosplash -r allq_cocktail_blank_test
+
