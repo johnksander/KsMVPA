@@ -11,8 +11,8 @@ switch location
     case 'bender'
         options.home_dir  = '/Users/ksander/Desktop/work/RCP';
     case 'hpc'
-        options.home_dir = '/data/netapp/jksander/RCPholly/KsMVPA_h';
-        addpath('/data/netapp/jksander/spm12');
+        options.home_dir = '/work/jksander/RCP/KsMVPA_h';
+        addpath('/work/jksander/RCP/KsMVPA_h/spm12');
     case 'woodstock'
         options.home_dir = '/home/acclab/Desktop/ksander/holly_mvpa/KsMVPA_h';
         addpath('/home/acclab/Desktop/ksander/spm12')

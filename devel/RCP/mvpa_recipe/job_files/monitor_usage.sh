@@ -1,7 +1,8 @@
 #!/bin/bash
-for i in {1..180..1}
+for i in {1..480..1}
 do 
-qhost -h devel-compute-5-0 >> usage_stats.txt
-sleep 30
+date >> usage_stats.txt
+sinfo --nodes=ncfmem01 -o "%m %e %c %O" >> usage_stats.txt
+sleep 60
 done
 

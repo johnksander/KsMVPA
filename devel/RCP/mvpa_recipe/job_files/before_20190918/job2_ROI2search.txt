@@ -1,0 +1,12 @@
+#$ -q bigmem.q
+#$ -N Tconn6_2p5
+
+#$ -pe orte 32
+#$ -l mem_token=10G
+#$ -l mem_free=10G
+#$ -ckpt reloc
+
+cd /data/netapp/jksander/RCPholly/KsMVPA_h/mvpa_recipe/
+module load MATLAB/R2015a
+matlab -nodisplay -nodesktop -nosplash -r run_job2_ROI2searchlight
+

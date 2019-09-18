@@ -1,0 +1,8 @@
+#$ -q bigmem.q
+#$ -N RSA_1p526t
+#$ -pe orte 32
+
+cd /data/netapp/jksander/RCPholly/KsMVPA_h/mvpa_recipe/
+module load MATLAB/R2015a
+matlab -nodisplay -nodesktop -nosplash -r RSA_searchlight_stats_mainscript_2
+

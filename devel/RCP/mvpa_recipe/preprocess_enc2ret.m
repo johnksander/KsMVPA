@@ -9,7 +9,7 @@ format compact
 %05/09/2018: hacky conn_subdir stuff added for testing connectivity schemes. 
 %Pulls manually saved options file from that subdirectory.
 
-enc_job = 'RSA_SL_1p5_ASGM_encodingValence';
+enc_job = 'RSA_SL_1p5_ASGM_encval_conn26';
 conn_subdir = 'conn_scheme_26'; %testing different connectivity scheme, pull from subdir 
 %breaking with the usual set_options() set up since we're loading an options
 %struture anyways.

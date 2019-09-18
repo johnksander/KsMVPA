@@ -2,9 +2,9 @@ clear
 clc
 format compact
 
-aname = 'MVPA_ROI2searchlight_2p5_ASGM_conn26tstat_enc2ret'; %might need a diff enc2ret naming scheme... 
-enc_job = 'RSA_SL_2p5_ASGM_encval_conn26tstat'; %encoding results to pull 
-num_workers = 32; %parpool workers
+aname = 'MVPA_ROI2searchlight_2p5_ASGM_enc2ret'; %might need a diff enc2ret naming scheme... 
+enc_job = 'RSA_SL_1p5_ASGM_encodingValence'; %encoding results to pull 
+num_workers = 24; %parpool workers
 
 
 %----name---------------------------------------------------
@@ -20,7 +20,7 @@ config_options.trial_temporal_compression = 'off';
 config_options.feature_selection = 'off';
 %----evaluation---------------------------------------------
 config_options.cluster_conn = 26;
-config_options.cluster_effect_stat = 't-stat';
+config_options.cluster_effect_stat = 'extent';
 %----fMRI-data-specification--------------------------------
 config_options.rawdata_type = 'LSS_eHDR'; % 'unsmoothed_raw' | dartel_raw | 'LSS_eHDR' | SPMbm | 'anatom' 
 config_options.LSSid = 'ASGM'; %LSS model ID (or SPMbm ID)
