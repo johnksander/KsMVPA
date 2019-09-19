@@ -166,6 +166,7 @@ if isfield(config_options,'treat_special_stimuli')
 else
     options.treat_special_stimuli = 'off';
 end
+options.parforlog = 'on';
 %feature selection
 options.feature_selection = config_options.feature_selection;
 options.lambda = 0.1; %whitening regularizatv
