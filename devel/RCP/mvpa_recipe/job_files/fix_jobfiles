@@ -1,0 +1,3 @@
+
+sed -iE 's/mem-per-cpu /mem-per-cpu=/;' *sh
+sed -iE 's/cpus-per-task /cpus-per-task=/;' *sh

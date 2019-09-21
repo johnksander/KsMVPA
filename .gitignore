@@ -8,3 +8,7 @@
 ehthumbs.db
 Thumbs.db
 
+devel/RCP/Data/*
+devel/RCP/Results/*
+devel/RCP/SPM_datasets/*
+devel/RCP/maskdir/*
