@@ -99,8 +99,8 @@ end
 
 %   2. load data: ROI masks from encoding data
 update_logfile('loading ROI masks from encoding',output_log)
-encdir = fullfile(options.home_dir,'Results','%s_stats','enc2ret_data');
-encdir = sprintf(encdir,options.enc_job);
+encdir = fullfile(options.home_dir,'Results',options.enc_job,'stats','%s_conn_%i','enc2ret_data');
+encdir = sprintf(encdir,options.cluster_effect_stat,options.cluster_conn); %consistent params 
 mask_data = spm_read_vols(spm_vol(fullfile(encdir,'results_mask.nii')));
 mask_data = logical(mask_data);
 num_encROIs = size(mask_data,4);

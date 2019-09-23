@@ -5,7 +5,7 @@ format compact
 %do both the analysis and permutations 
 num_workers = 24; %parpool workers
 do_analysis = true;
-do_stats = true;
+do_stats = false;
 
 options = set_options('name','MVPA_R2SL_2p5_enc2ret_k80','location','bender',...
     'enc_job','RSA_SL_1p5_ASGM_encodingValence',...
@@ -37,7 +37,7 @@ if do_stats
     
     %---stats mapping----------------------------------------
     
-    map_ROI2searchlight_stats(options)
+    map_ROI2searchlight_stats(options);
     
 end
 %---cleanup-------------------
