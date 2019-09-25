@@ -75,8 +75,8 @@ end
 %----directories-----------------------
 switch options.location
     case 'harvard'
-        options.home_dir = '/ncf/mri/01/users/ksander/RCP/KsMVPA_h/';
-        addpath('/ncf/mri/01/users/ksander/RCP/spm12');
+        options.home_dir = '/users/ksander/RCP/KsMVPA_h';
+        addpath('/users/ksander/RCP/KsMVPA_h/spm12');
     case 'bender'
         options.home_dir  = '/Users/ksander/Desktop/work/KsMVPA_github/devel/RCP';
         addpath('/Users/ksander/Desktop/work/spm12')
