@@ -31,7 +31,7 @@ for idx = 1:num_encROIs
             ROI_results{subject_idx} = [curr_cell(:,1),curr_cell(:,idx+1)];
             %load the null distribution for this subject & ROI
             subject_null = sprintf('subject_%i_encROI%i.mat',options.subjects(subject_idx),idx);
-            subject_null = load(fullfile(options.save_dir,'perm_files',subject_null));
+            subject_null = load(fullfile(main_save_dir,'perm_files',subject_null));
             subject_null = subject_null.voxel_null;
             voxel_null{subject_idx} = subject_null;
         end
