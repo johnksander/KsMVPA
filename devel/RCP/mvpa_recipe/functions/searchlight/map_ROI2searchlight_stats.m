@@ -8,7 +8,9 @@ main_save_dir = fullfile(options.save_dir,'stats'); %we're going to save results
 %load searchlight results for all ROIs 
 output_log = fullfile(options.save_dir,'stats_output_log.txt');
 update_logfile('loading searchlight results',output_log)
-searchlight_results = load(fullfile(options.home_dir,'Results',resname,[resname '_braincells.mat']));
+searchlight_results = fullfile(options.home_dir,'Results','%s','%s_braincells.mat');
+searchlight_results = sprintf(searchlight_results,options.name,options.name);
+searchlight_results = load(searchlight_results);
 searchlight_results = searchlight_results.searchlight_cells;
 num_encROIs = find(~ismember(options.subjects,options.exclusions),1,'first'); %grab a valid subject index
 num_encROIs = size(searchlight_results{num_encROIs},2) - 1;
