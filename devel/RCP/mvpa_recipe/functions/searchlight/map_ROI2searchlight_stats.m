@@ -3,9 +3,9 @@ function map_ROI2searchlight_stats(options)
 %in ROI-to-searchlight analyses (i.e. encoding-to-retreival analyses)
 
 
-main_save_dir = fullfile(options.save_dir,'stats'); %we're going to save results in subdirs 
+main_save_dir = options.save_dir; %we're going to save results in subdirs
 
-%load searchlight results for all ROIs 
+%load searchlight results for all ROIs
 output_log = fullfile(options.save_dir,'stats_output_log.txt');
 update_logfile('loading searchlight results',output_log)
 searchlight_results = fullfile(options.home_dir,'Results','%s','%s_braincells.mat');
@@ -37,13 +37,13 @@ for idx = 1:num_encROIs
         end
     end
     
-    %make ROI specfic savedir 
-    options.save_dir = fullfile(main_save_dir,...
+    %make ROI specfic savedir
+    options.save_dir = fullfile(main_save_dir,'stats',...
         sprintf('%s_conn_%i',options.cluster_effect_stat,options.cluster_conn),...
         sprintf('ROI_%i_results',idx));
     
     if ~isdir(options.save_dir),mkdir(options.save_dir);end
-
+    
     %here's the statistics
     map_searchlight_significance(ROI_results,voxel_null,options);
     
