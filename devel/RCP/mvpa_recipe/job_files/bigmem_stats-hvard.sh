@@ -1,10 +1,10 @@
 #!/bin/bash
-#SBATCH -J RSAstats # A single job name for the array
-#SBATCH --time=12:00:00	 # Running time 
-#SBATCH --mem=200G # Memory request
+#SBATCH -J stats # A single job name for the array
+#SBATCH --time=1-00:00	 # Running time 
+#SBATCH --mem=400G # Memory request
 #SBATCH --partition=ncf_bigmem
-#SBATCH -o log_RSA_stats.out
-#SBATCH -e log_RSA_stats.err
+#SBATCH -o log_stats_%A_%a.out
+#SBATCH -e log_stats_%A_%a.err
 
 
 cd /users/ksander/RCP/KsMVPA_h/mvpa_recipe/
