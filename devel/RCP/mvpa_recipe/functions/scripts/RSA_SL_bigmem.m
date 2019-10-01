@@ -247,4 +247,5 @@ for roi_idx = 1:numel(options.roi_list)
 end
 update_logfile('---analysis complete---',output_log)
 
+save(fullfile(options.save_dir,[options.name '_braincells']),'searchlight_cells','options')
 

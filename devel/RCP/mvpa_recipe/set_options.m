@@ -53,7 +53,8 @@ options.cluster_effect_stat = 't-stat'; %'extent' | 't-stat'
 options.vox_alpha = .001; %default 
 %----ROI2searchlight analysis----------
 options.enc_job = ''; %might wana nest this, pack more info there 
-
+%----RSA-------------------------------
+options.RDM_dist_metric = 'spearman'; %'spearman' | 'kendall'
 
 
 %parse inputs 
@@ -218,8 +219,3 @@ if ~isdir(options.save_dir),mkdir(options.save_dir);end
 %    options = rmfield(options,F);
 % end
 
-%%integrate this better, but if you wana break up the perm jobs--
-%skip_subs = options.subjects(options.subjects <= 419);
-%skip_subs = [skip_subs, options.exclusions];
-%skip_subs = unique(skip_subs);
-%options.exclusions = skip_subs;
