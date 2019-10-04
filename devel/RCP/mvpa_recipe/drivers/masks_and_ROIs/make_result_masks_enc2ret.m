@@ -2,29 +2,29 @@ clear
 clc
 format compact
 
-%05/09/2018: note- just added "conn_subdir" stuff to test different
-%connectivity schemes. This just looks in a result subdirectory. I also
-%moved the "cluster_conn=" specification up to the top, since that's relevant!
-
-job_name = 'RSA_SL_1p5_ASGM_encodingValence';
-conn_subdir = 'conn_scheme_26/cluster_t-stat'; %testing different connectivity scheme, pull from subdir 
-cluster_conn = 26; %this needs to match the cluster_search() that produced results
-SLradius = 1.5; %only relevant for seeds
-makeROI = 'seeds'; % seeds | volumes
+%10/03/2019: now takes sats & connection config from saved options file 
 
 basedir = '/home/acclab/Desktop/ksander/holly_mvpa/KsMVPA_h/';
+job_name = 'RSA_SL_1p5_VMGM_encodingValence';
+stats_dir = 't-stat_conn_6'; %testing different connectivity scheme, pull from subdir 
+makeROI = 'volumes'; % seeds | volumes
+
+res_dir = fullfile(basedir,'Results',job_name,'stats',stats_dir);
+options = load(fullfile(res_dir,'stat_outcomes.mat'),'options'); %load encoding options profile 
+options = options.options;
+options = reset_optpaths(options,'woodstock');
+
+cluster_conn = options.cluster_conn; %this needs to match the cluster_search() that produced results
+SLradius = options.searchlight_radius; %only relevant for seeds
+
 %maskdir = fullfile(basedir,'maskdir');
 NTdir = fullfile(basedir,'mvpa_recipe','Nifti_Toolbox');
-SLdir = fullfile(basedir,'mvpa_recipe','searchlight_functions');
-result_dir = fullfile(basedir,'Results');
 addpath(NTdir)
-addpath(SLdir)
+addpath(options.searchlight_function_dir)
 %select_linus_spm('spm12')
 
 %now fix up the res dir & pull results
-result_dir = fullfile(result_dir,[job_name '_stats']);
-result_dir = fullfile(result_dir,conn_subdir); %testing different connectivity scheme, pull from subdir 
-save_dir = fullfile(result_dir,'enc2ret_data');
+save_dir = fullfile(res_dir,'enc2ret_data');
 if ~isdir(save_dir),mkdir(save_dir);end
 
 switch makeROI
@@ -34,8 +34,8 @@ switch makeROI
         rFN = 'significant_cluster_seeds.nii';
 end
 
-template_file = load_nii(fullfile(result_dir,rFN));
-sig_clusters = load_nii(fullfile(result_dir,rFN));
+template_file = load_nii(fullfile(res_dir,rFN));
+sig_clusters = load_nii(fullfile(res_dir,rFN));
 sig_clusters = sig_clusters.img;
 volsz = size(sig_clusters);
 
