@@ -219,3 +219,8 @@ if ~isdir(options.save_dir),mkdir(options.save_dir);end
 %    options = rmfield(options,F);
 % end
 
+%%integrate this better, but if you wana break up the perm jobs--
+ %skip_subs = options.subjects(options.subjects <= 419);
+ %skip_subs = [skip_subs, options.exclusions];
+ %skip_subs = unique(skip_subs);
+ %options.exclusions = skip_subs;
