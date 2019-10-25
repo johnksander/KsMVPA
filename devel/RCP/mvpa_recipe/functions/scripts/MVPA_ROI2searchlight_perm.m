@@ -243,8 +243,7 @@ for roi_idx = 1:numel(options.roi_list)
                         switch options.performance_stat
                             case 'accuracy' %nothing fancy or dumb
                                 ROI_models{enc_idx,permidx} = fitcdiscr(training_data,...
-                                    training_labels(:,permidx),...
-                                    'DiscrimType',options.classifier_type,'Prior','uniform');
+                                    training_labels(:,permidx),options.classifier_type{:});
                             case 'oldMC' %binary comparison models
                                 ROI_models{enc_idx,permidx} = ...
                                     train_oldMC_LDA(training_data,training_labels(:,permidx));

@@ -1,0 +1,34 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2018 The MathWorks, Inc.
+                   R2018b (9.5.0.944444) 64-bit (glnxa64)
+                              August 28, 2018
+
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+
+	Must set WallTime and QueueName before submitting jobs to ODYSSEY.  E.g.
+
+	>> c = parcluster('odyssey');
+	>> % 5 hour walltime
+	>> c.AdditionalProperties.WallTime = '05:00:00';
+	>> c.AdditionalProperties.QueueName = 'test-queue';
+	>> c.saveProfile
+
+
+ans = 
+
+  AdditionalProperties with properties:
+
+              AccountName: ''
+     AdditionalSubmitArgs: ''
+               Constraint: ''
+    DebugMessagesTurnedOn: 0
+              GpusPerNode: 0
+                 MemUsage: '4000'
+             ProcsPerNode: 0
+                QueueName: 'ncf_holy'
+                 WallTime: '3-00:00'
+

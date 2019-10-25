@@ -224,3 +224,10 @@ if ~isdir(options.save_dir),mkdir(options.save_dir);end
  %skip_subs = [skip_subs, options.exclusions];
  %skip_subs = unique(skip_subs);
  %options.exclusions = skip_subs;
+ 
+%likewise for array job
+%  subs2run = options.subjects(~ismember(options.subjects,options.exclusions));
+%  JID = str2num(getenv('SLURM_ARRAY_TASK_ID'));
+%  subs2run = subs2run(JID);
+%  options.exclusions = options.subjects(~ismember(options.subjects,subs2run));
+

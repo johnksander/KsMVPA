@@ -120,9 +120,9 @@ for roi_idx = 1:numel(options.roi_list)
     commonvox_maskdata = fullfile(options.preproc_data_dir,['commonvox_' options.roi_list{roi_idx}]);
     commonvox_maskdata =  spm_read_vols(spm_vol(commonvox_maskdata));
     [searchlight_inds,seed_inds] = preallocate_searchlights(commonvox_maskdata,options.searchlight_radius); %grow searchlight sphere @ every included voxel
-    %        searchlight_inds = load('SLinds_1p5thr10.mat'); %just for debugging
-    %        seed_inds = searchlight_inds.seed_inds;
-    %        searchlight_inds = searchlight_inds.searchlight_inds;
+    %            searchlight_inds = load('checkpoint.mat'); %just for debugging
+    %            seed_inds = searchlight_inds.seed_inds;
+    %            searchlight_inds = searchlight_inds.searchlight_inds;
     update_logfile('Searchlight indexing complete',output_log)
     update_logfile(['----Total valid searchlights: ' num2str(numel(seed_inds))],output_log)
     %4. loop through subjects
@@ -229,13 +229,12 @@ for roi_idx = 1:numel(options.roi_list)
                     switch options.performance_stat
                         case 'accuracy' %nothing fancy or dumb
                             ROI_models{enc_idx} = fitcdiscr(training_data,training_labels,...
-                                'DiscrimType',options.classifier_type,'Prior','uniform');
+                                options.classifier_type{:});
                         case 'oldMC' %the "old multiclass" scheme
                             ROI_models{enc_idx} = train_oldMC_LDA(training_data,training_labels);
                     end
                     
                 end
-                
                 %   8b. PCA feature selection: searchlight matrix
                 update_logfile('PCA feature selection & LDA training: searchlight matrix',output_log)
                 update_logfile(sprintf('----N PCs = %i',options.PCAcomponents2keep),output_log)
