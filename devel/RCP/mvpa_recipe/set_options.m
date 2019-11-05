@@ -231,3 +231,12 @@ if ~isdir(options.save_dir),mkdir(options.save_dir);end
 %  subs2run = subs2run(JID);
 %  options.exclusions = options.subjects(~ismember(options.subjects,subs2run));
 
+%this may come in handy for DCS, job prof directories
+%    files2attach = {which('predict.m')};
+%    c = parcluster('local');
+%    c.NumWorkers = num_workers;
+%    prof_loc = sprintf('/users/ksander/parprofiles/prof_%i',JID);
+%    if ~isdir(prof_loc),mkdir(prof_loc);end
+%    c.JobStorageLocation = prof_loc;
+%    parpool(c,c.NumWorkers,'IdleTimeout',Inf,'AttachedFiles',files2attach)
+
