@@ -1,0 +1,276 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2018 The MathWorks, Inc.
+                   R2018b (9.5.0.944444) 64-bit (glnxa64)
+                              August 28, 2018
+
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+Creating options structureStarting parallel pool (parpool) using the 'local' profile ...
+connected to 30 workers.
+ans = 
+ Pool with properties: 
+
+            Connected: true
+           NumWorkers: 30
+              Cluster: local
+        AttachedFiles: ...re/matlab/R2018b-fasrc01/toolbox/ident/ident/predict.m
+    AutoAddClientPath: true
+          IdleTimeout: Inf (no automatic shut down)
+          SpmdEnabled: true
+loading ROI masks from encoding
+----Encoding ROIs found: 6
+:::Starting ROI-to-searchlight MVPA permutation testing:::
+ROI: gray_matter
+
+Finding searchlight indicies
+Preallocating searchlights
+Working on voxel: 10000 / 193105
+Working on voxel: 20000 / 193105
+Working on voxel: 30000 / 193105
+Working on voxel: 40000 / 193105
+Working on voxel: 50000 / 193105
+Working on voxel: 60000 / 193105
+Working on voxel: 70000 / 193105
+Working on voxel: 80000 / 193105
+Working on voxel: 90000 / 193105
+Working on voxel: 100000 / 193105
+Working on voxel: 110000 / 193105
+Working on voxel: 120000 / 193105
+Working on voxel: 130000 / 193105
+Working on voxel: 140000 / 193105
+Working on voxel: 150000 / 193105
+Working on voxel: 160000 / 193105
+Working on voxel: 170000 / 193105
+Working on voxel: 180000 / 193105
+Working on voxel: 190000 / 193105
+Searchlight indexing complete
+----Total valid searchlights: 105549
+starting subject # 410
+loading whole-brain data
+----treating data for encoding ROI #1/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x225
+----treating data for encoding ROI #2/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x154
+----treating data for encoding ROI #3/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x229
+----treating data for encoding ROI #4/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x169
+----treating data for encoding ROI #5/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x379
+----treating data for encoding ROI #6/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x790
+Creating searchlight matrix
+Searchlight matrix complete
+Searchlight matrix set to zero mean & unit variance: run wise
+PCA feature selection & LDA training: encoding ROIs
+----N PCs = 80
+----ROI #1/6 var retained = 98.55 percent
+----ROI #2/6 var retained = 99.04 percent
+----ROI #3/6 var retained = 98.56 percent
+----ROI #4/6 var retained = 98.79 percent
+----ROI #5/6 var retained = 97.02 percent
+----ROI #6/6 var retained = 95.91 percent
+PCA feature selection & LDA training: searchlight matrix
+----N PCs = 80
+----finished
+Classifying searchlights with permuted labelings
+----20.0 percent complete
+----40.0 percent complete
+----60.0 percent complete
+----80.0 percent complete
+----80.0 percent complete
+----100.0 percent complete
+Saving permutation results
+starting subject # 413
+loading whole-brain data
+----treating data for encoding ROI #1/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x225
+----treating data for encoding ROI #2/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x154
+----treating data for encoding ROI #3/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x229
+----treating data for encoding ROI #4/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x169
+----treating data for encoding ROI #5/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x379
+----treating data for encoding ROI #6/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x790
+Creating searchlight matrix
+Searchlight matrix complete
+Searchlight matrix set to zero mean & unit variance: run wise
+PCA feature selection & LDA training: encoding ROIs
+----N PCs = 80
+----ROI #1/6 var retained = 97.79 percent
+----ROI #2/6 var retained = 97.97 percent
+----ROI #3/6 var retained = 97.98 percent
+----ROI #4/6 var retained = 95.70 percent
+----ROI #5/6 var retained = 95.36 percent
+----ROI #6/6 var retained = 92.56 percent
+PCA feature selection & LDA training: searchlight matrix
+----N PCs = 80
+----finished
+Classifying searchlights with permuted labelings
+----20.0 percent complete
+----20.0 percent complete
+Saving permutation results
+starting subject # 414
+loading whole-brain data
+----treating data for encoding ROI #1/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x225
+----treating data for encoding ROI #2/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x154
+----treating data for encoding ROI #3/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x229
+----treating data for encoding ROI #4/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x169
+----treating data for encoding ROI #5/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x379
+----treating data for encoding ROI #6/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x790
+Creating searchlight matrix
+Searchlight matrix complete
+Searchlight matrix set to zero mean & unit variance: run wise
+PCA feature selection & LDA training: encoding ROIs
+----N PCs = 80
+----ROI #1/6 var retained = 98.90 percent
+----ROI #2/6 var retained = 98.55 percent
+----ROI #3/6 var retained = 98.46 percent
+----ROI #4/6 var retained = 98.01 percent
+----ROI #5/6 var retained = 97.75 percent
+----ROI #6/6 var retained = 96.10 percent
+PCA feature selection & LDA training: searchlight matrix
+----N PCs = 80
+----finished
+Classifying searchlights with permuted labelings
+Saving permutation results
+starting subject # 419
+loading whole-brain data
+----treating data for encoding ROI #1/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x225
+----treating data for encoding ROI #2/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x154
+----treating data for encoding ROI #3/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x229
+----treating data for encoding ROI #4/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x169
+----treating data for encoding ROI #5/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x379
+----treating data for encoding ROI #6/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x790
+Creating searchlight matrix
+Searchlight matrix complete
+Searchlight matrix set to zero mean & unit variance: run wise
+PCA feature selection & LDA training: encoding ROIs
+----N PCs = 80
+----ROI #1/6 var retained = 98.79 percent
+----ROI #2/6 var retained = 99.36 percent
+----ROI #3/6 var retained = 98.81 percent
+----ROI #4/6 var retained = 98.42 percent
+----ROI #5/6 var retained = 97.41 percent
+----ROI #6/6 var retained = 96.44 percent
+PCA feature selection & LDA training: searchlight matrix
+----N PCs = 80
+----finished
+Classifying searchlights with permuted labelings
+----20.0 percent complete
+----60.0 percent complete
+----100.0 percent complete
+Saving permutation results
+starting subject # 421
+loading whole-brain data
+----treating data for encoding ROI #1/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x225
+----treating data for encoding ROI #2/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x154
+----treating data for encoding ROI #3/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x229
+----treating data for encoding ROI #4/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x169
+----treating data for encoding ROI #5/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x379
+----treating data for encoding ROI #6/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x790
+Creating searchlight matrix
+Searchlight matrix complete
+Searchlight matrix set to zero mean & unit variance: run wise
+PCA feature selection & LDA training: encoding ROIs
+----N PCs = 80
+----ROI #1/6 var retained = 98.52 percent
+----ROI #2/6 var retained = 98.36 percent
+----ROI #3/6 var retained = 98.40 percent
+----ROI #4/6 var retained = 98.50 percent
+----ROI #5/6 var retained = 96.61 percent
+----ROI #6/6 var retained = 94.28 percent
+PCA feature selection & LDA training: searchlight matrix
+----N PCs = 80
+----finished
+Classifying searchlights with permuted labelings
+----20.0 percent complete
+----60.0 percent complete
+----80.0 percent complete
+----80.0 percent complete
+----100.0 percent complete
+Saving permutation results
+starting subject # 425
+loading whole-brain data
+----treating data for encoding ROI #1/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x225
+----treating data for encoding ROI #2/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x154
+----treating data for encoding ROI #3/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x229
+----treating data for encoding ROI #4/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x169
+----treating data for encoding ROI #5/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x379
+----treating data for encoding ROI #6/6
+----data set to zero mean & unit variance: run wise
+----ROI size check: 384x790
+Creating searchlight matrix
+Searchlight matrix complete
+Searchlight matrix set to zero mean & unit variance: run wise
+PCA feature selection & LDA training: encoding ROIs
+----N PCs = 80
+----ROI #1/6 var retained = 98.95 percent
+----ROI #2/6 var retained = 98.95 percent
+----ROI #3/6 var retained = 98.94 percent
+----ROI #4/6 var retained = 98.36 percent
+----ROI #5/6 var retained = 97.68 percent

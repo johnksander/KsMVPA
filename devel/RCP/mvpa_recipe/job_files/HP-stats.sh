@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --dependency=afterok:26646351
+#SBATCH --dependency=afterok:32055266
 #SBATCH -J HP-stats # A single job name for the array
 #SBATCH --time=1-00:00	 # Running time 
 #SBATCH --mem=400G # Memory request

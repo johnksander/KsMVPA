@@ -4,6 +4,7 @@ format compact
 
 %do both the analysis and permutations 
 num_workers = 30; %parpool workers
+skipping_subs = false;
 do_analysis = true;
 do_stats = false;
 
@@ -11,10 +12,17 @@ mdl = {'DiscrimType','linear','Prior','uniform','SaveMemory','on','FillCoeffs','
     'OptimizeHyperparameters','auto',...
     'HyperparameterOptimizationOptions',struct('Kfold',10,'ShowPlots',false,'Verbose',0)};
     
-options = set_options('name','MVPA_R2SL_2p5_enc2ret_k80_HP','location','harvard',...
-    'enc_job','RSA_SL_1p5_ASGM_encodingValence',...
-    'searchlight_radius',2.5,'PCAcomponents2keep',80,...
+options = set_options('name','MVPA_R2SL_2p5_enc2ret_k70_HP','location','harvard',...
+    'enc_job','RSA_SL_1p5_ASGM_encodingValence','LSSid','ASGM','cluster_conn',26,...
+    'searchlight_radius',2.5,'PCAcomponents2keep',70,...
     'classifier_type',mdl);
+
+if skipping_subs
+    skip_subs = options.subjects(options.subjects < 439);
+    skip_subs = [skip_subs, options.exclusions];
+    skip_subs = unique(skip_subs);
+    options.exclusions = skip_subs;
+end
 
 if do_analysis
    
@@ -25,9 +33,9 @@ if do_analysis
     parpool(c,c.NumWorkers,'IdleTimeout',Inf,'AttachedFiles',files2attach)
     
     %---main analysis----------------------------------------
-    
-    searchlight_cells = MVPA_ROI2searchlight(options);
-    
+    if ~skipping_subs %all subs run at once
+        searchlight_cells = MVPA_ROI2searchlight(options);
+    end
     %---permutations-----------------------------------------
     
     MVPA_ROI2searchlight_perm(options);
