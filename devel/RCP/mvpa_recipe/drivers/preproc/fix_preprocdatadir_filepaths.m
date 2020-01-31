@@ -9,8 +9,12 @@ preproc_data_file_pointers = preproc_data_file_pointers.preproc_data_file_pointe
 %olddir = '/data/netapp/jksander/RCPholly/';
 
 %linus/woodstock to harvard
-newdir = '/ncf/mri/01/users/ksander/RCP/';
-olddir = '/home/acclab/Desktop/ksander/holly_mvpa/';
+%newdir = '/ncf/mri/01/users/ksander/RCP/';
+%olddir = '/home/acclab/Desktop/ksander/holly_mvpa/';
+
+%harvard to bender
+newdir = '/Users/ksander/Desktop/work/KsMVPA/devel/RCP/';
+olddir = '/users/ksander/RCP/KsMVPA_h/';
 
 for idx = 1:numel(preproc_data_file_pointers)
     preproc_data_file_pointers{idx} = strrep(preproc_data_file_pointers{idx},olddir,newdir);

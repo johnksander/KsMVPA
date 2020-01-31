@@ -79,7 +79,7 @@ switch options.location
         options.home_dir = '/users/ksander/RCP/KsMVPA_h';
         addpath('/users/ksander/RCP/KsMVPA_h/spm12');
     case 'bender'
-        options.home_dir  = '/Users/ksander/Desktop/work/KsMVPA_github/devel/RCP';
+        options.home_dir  = '/Users/ksander/Desktop/work/KsMVPA/devel/RCP';
         addpath('/Users/ksander/Desktop/work/spm12')
     case 'hpc'
         options.home_dir = '/work/jksander/RCP/KsMVPA_h';
